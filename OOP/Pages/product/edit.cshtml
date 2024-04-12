@@ -1,0 +1,88 @@
+﻿@page
+@model Presentation.Pages.product.EditModel
+<h4 class="text-danger">@Model.Feedback</h4>
+<h4 class="text-center">Cập nhật thông tin sản phẩm</h4>
+<div class="d-flex justify-content-center">
+    <form method="post" class="row g-3 w-50">
+        <div class="col-md-3">
+            <label for="id" class="form-label">Mã</label>
+            <input class="form-control" name="id" value="@Model.DefId">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-6">
+            <label for="name" class="form-label">Tên</label>
+            <input type="text" class="form-control" name="name" value="@Model.DefName">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-3">
+            <label for="price" class="form-label">Giá</label>
+            <input class="form-control" name="price" value="@Model.DefPrice">
+            <span class="invalid-feedback"></span>
+        </div>
+
+        <div class="col-md-2">
+            <label for="quantity" class="form-label">Số lượng</label>
+            <input type="number" class="form-control" name="quantity" value="@Model.DefQuantity">
+            <span class="invalid-feedback"></span>
+
+        </div>
+        <div class="col-md-5">
+            <label for="category" class="form-label">loại sản phẩm</label>
+            <select class="form-select" name="category">
+                <span class="invalid-feedback"></span>
+                <option selected value="@Model.DefCategory">@Model.DefCategory</option>
+                <option value="ABC">ABC</option>
+            </select>
+        </div>
+        <div class="col-md-5">
+            <label for="company" class="form-label">Công ty sản xuất</label>
+            <input class="form-control" name="company" value="@Model.DefCompany" />
+            <span class="invalid-feedback"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label for="mfg" class="form-label">Ngày sản xuất</label>
+            <input type="date" class="form-control" name="mfg" value="@Model.DefMfg.ToString("yyyy-MM-dd")" />
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-6">
+            <input checked type="checkbox" id="checkbox" onclick="ExpToggle()">
+            <label for="exp" class="form-label">Ngày hết hạng</label>
+            <input type="date" class="form-control" name="exp" id="exp" value="@Model.DefExp.ToString("yyyy-MM-dd")" />
+            <span class="invalid-feedback"></span>
+        </div>
+        <a class="col-6 btn btn-secondary">Hủy</a>
+        <button class="col-6 btn btn-primary">Cập nhật</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var checkbox = document.querySelector("input[id=checkbox]")
+    var exp = document.querySelector("input[id=exp]");
+    if (exp.value == "0001-01-01") {
+        exp.readOnly = true;
+        exp.value = null;
+        exp.type = "text";
+        exp.placeholder = "Không có hạng sử dụng";
+        checkbox.checked = false;
+    }
+    else {
+        exp.readOnly = false;
+        exp.type = "date";
+        exp.required = true;
+        checkbox.checked = true;
+    }
+    function ExpToggle() {
+        if (checkbox.checked == true) {
+            exp.readOnly = false;
+            exp.type = "date";
+            exp.required = true;
+        }
+        else {
+            exp.readOnly = true;
+            exp.value = null;
+            exp.type = "text";
+            exp.placeholder = "Không có hạng sử dụng";
+        }
+    }
+</script>
