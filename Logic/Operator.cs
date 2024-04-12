@@ -22,9 +22,11 @@ namespace Logic
             list[index] = updatedItem;
             _Accessor.Write(list);
         }
-        public void Delete()
+        public void Delete(int index)
         {
-
+            List<T> list = _Accessor.Read();
+            list.RemoveAt(index);
+            _Accessor.Write(list);
         }
         public void Search(string id)
         {

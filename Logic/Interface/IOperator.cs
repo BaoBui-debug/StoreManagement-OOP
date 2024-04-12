@@ -4,7 +4,7 @@
     {
         void Add(T newItem);
         void Update(T updatedItem, int index);
-        void Delete();
+        void Delete(int index);
         void Search(string id);
     }
 }
