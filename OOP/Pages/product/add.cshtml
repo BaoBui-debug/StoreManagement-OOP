@@ -1,0 +1,87 @@
+﻿@page
+@model Presentation.Pages.product.AddModel
+
+<h1 class="text-danger">@Model.FeedBack</h1>
+<h3 class="text-center">Nhập thông tin sản phẩm</h3>
+<div class="d-flex justify-content-center">
+    <form method="post" class="row g-3 w-50">
+        <div class="col-md-3">
+            <label for="id" class="form-label">Mã</label>
+            <input class="form-control" name="id">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-6">
+            <label for="name" class="form-label">Tên</label>
+            <input type="text" class="form-control" name="name">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-3">
+            <label for="price" class="form-label">Giá</label>
+            <input class="form-control" name="price">
+            <span class="invalid-feedback"></span>
+        </div>
+
+        <div class="col-md-2">
+            <label for="quantity" class="form-label">Số lượng</label>
+            <input type="number" value="1" class="form-control" name="quantity">
+            <span class="invalid-feedback"></span>
+
+        </div>
+        <div class="col-md-5">
+            <label for="category" class="form-label">loại sản phẩm</label>
+            <select class="form-select" name="category">
+                <span class="invalid-feedback"></span>
+                <option selected hidden></option>
+                <option value="ABC">ABC</option>
+            </select>
+        </div>
+        <div class="col-md-5">
+            <label for="company" class="form-label">Công ty sản xuất</label>
+            <input class="form-control" name="company" />
+            <span class="invalid-feedback"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label for="mfg" class="form-label">Ngày sản xuất</label>
+            <input type="date" class="form-control" name="mfg" />
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-6">
+            <input checked value="true" type="checkbox" id="checkbox" onclick="ExpToggle()">
+            <label for="exp" class="form-label">Ngày hết hạng</label>
+            <input type="date" class="form-control" name="exp" id="exp" />
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Thêm</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    var checkbox = document.querySelector("input[id=checkbox]")
+    var exp = document.querySelector("input[id=exp]");
+    if (checkbox.checked == true) {
+        exp.readOnly = false;
+        exp.type = "date";
+        exp.required = true;
+    }
+    else {
+        exp.readOnly = true;
+        exp.value = null;
+        exp.type = "text";
+        exp.placeholder = "Không có hạng sử dụng";
+    }
+    function ExpToggle() {
+        if (checkbox.checked == true) {
+            exp.readOnly = false;
+            exp.type = "date";
+            exp.required = true;
+        }
+        else {
+            exp.readOnly = true;
+            exp.value = null;
+            exp.type = "text";
+            exp.placeholder = "Không có hạng sử dụng";
+        }
+    }
+</script>
