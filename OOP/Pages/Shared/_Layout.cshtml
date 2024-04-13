@@ -25,6 +25,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/view">Storage</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -33,6 +36,21 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+            <script type="text/javascript">
+                function ExpToggle() {
+                    if (checkbox.checked == true) {
+                        exp.readOnly = false;
+                        exp.type = "date";
+                        exp.required = true;
+                    }
+                    else {
+                        exp.readOnly = true;
+                        exp.value = null;
+                        exp.type = "text";
+                        exp.placeholder = "Không có hạng sử dụng";
+                    }
+                }
+            </script>
         </main>
     </div>
 
