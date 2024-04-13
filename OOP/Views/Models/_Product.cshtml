@@ -1,0 +1,52 @@
+﻿@using Entity;
+@model List<Product>
+
+<table class="table">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">Mã</th>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Ngày sản xuất</th>
+            <th scope="col">Ngày hết hạng</th>
+            <th scope="col">Tên công ty</th>
+            <th scope="col">Giá</th>
+            <th scope="col">Phân loại</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (Product p in Model)
+            {
+                <tr class="text-center">
+                    <th scope="row">@p.Id</th>
+                    <td>
+                        <i>@p.Name</i>
+                    </td>
+                    <td><i>@p.Mfg</i></td>
+                    <td>
+                        @{
+                            if (p.Exp == null)
+                            {
+                                <i><strong>Không có</strong></i>
+                            }
+                            else
+                            {
+                                <i>@p.Exp.ToString()</i>
+                            }
+                        }
+                    </td>
+                    <td><strong><i>@p.Company</i></strong></td>
+                    <td><i>@p.Price ₫</i></td>
+                    <td><strong><i>@p.Category.Name</i></strong></td>
+                    <td><strong>@p.Category.Quantity</strong></td>
+                    <td>
+                        <a href="/Edit?id=@p.Id" class="btn btn-primary">Sửa</a>
+                        <a href="/Delete?id=@p.Id" class="btn btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
