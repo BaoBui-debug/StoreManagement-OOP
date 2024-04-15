@@ -13,16 +13,11 @@ namespace Presentation.Pages
         public List<Category> Categories = _CategoryController.FetchData();
         public string? id;
         public string? Entity;
+        public string? FeedBack;
         public void OnGet()
         {
-            /*
-             pr : Product
-            ct : Category
-            ip : Imports
-            iv : Invoices
-            */
             id = Request.Query["i"].ToString();
-            switch(id) 
+            switch (id)
             {
                 case "pr":
                     Entity = "product";
@@ -35,6 +30,22 @@ namespace Presentation.Pages
                     break;
                 case "iv":
                     Entity = "invoices";
+                    break;
+            }
+        }
+        public void OnPost()
+        {
+            id = Request.Query["i"].ToString();
+            string request = Request.Form["search"].ToString();
+            switch (id) 
+            {
+                case "pr":
+                    Products = _ProductController.FetchData().FindAll(p => p.GetIdentifier() == request);
+                    FeedBack = Products.Count > 0 ? $"Tìm thấy {Products.Count} kết quả" : "Không tìm thấy kết quả nào";
+                    break;
+                case "ct":
+                    Categories = _CategoryController.FetchData().FindAll(c => c.GetIdentifier() == request);
+                    FeedBack = Categories.Count > 0 ? $"Tìm thấy {Categories.Count} kết quả" : "Không tìm thấy kết quả nào";
                     break;
             }
         }

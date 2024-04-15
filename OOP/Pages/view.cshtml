@@ -24,17 +24,10 @@
                 </div>
                 <div class="col-6">
                     @{
-                        /*
-                         
-                        if (!string.IsNullOrEmpty(Model.feedback) && Model.searchSucess)
+                        if (Model.FeedBack != null)
                         {
-                            <partial name="_Success" model=@Model.feedback />
+                            <partial name="_Inform" model=@Model.FeedBack />
                         }
-                        if (!string.IsNullOrEmpty(Model.feedback) && !Model.searchSucess)
-                        {
-                            <partial name="_Info" model=@Model.feedback />
-                        }
-                         */
                     }
                 </div>
             </div>
