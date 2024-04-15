@@ -125,16 +125,14 @@
                 </div>
             </form>
             @{
-                /*
-                 * 
-                if (Model.listOfProduct.Length == 0)
+                if (Model.data.Count == 0)
                 {
                     <div class="text-center"><h4>Hiện không có sản phẩm nào...</h4></div>
                     return;
                 }
-                 */
+            //<partial name="~/Views/Models/_Product.cshtml" model="@Model.data"/>
             }
-            <partial name="~/Views/Models/_Product.cshtml" model="@Model.data"/>
+            <partial name="~/Views/Models/_Category.cshtml" model="@Model.data"/>
         </section>
     </div>
 </div>

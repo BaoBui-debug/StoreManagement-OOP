@@ -30,7 +30,6 @@ namespace Logic
         }
         public void Search(string id)
         {
-
         }
         public List<T> GetList()
         {
