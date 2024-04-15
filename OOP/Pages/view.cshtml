@@ -125,14 +125,19 @@
                 </div>
             </form>
             @{
-                if (Model.data.Count == 0)
+                switch (Model.id)
                 {
-                    <div class="text-center"><h4>Hiện không có sản phẩm nào...</h4></div>
-                    return;
+                    case "pr":
+                    <partial name="~/Views/Models/_Product.cshtml" model="@Model.Products"/>
+                    break;
+                    case "ct":
+                        <partial name="~/Views/Models/_Category.cshtml" model="@Model.Categories"/>
+                        break;
+                    default:
+                        <h4 class="text-danger">Yêu cầu không hợp lệ</h4>
+                        break;
                 }
-            //<partial name="~/Views/Models/_Product.cshtml" model="@Model.data"/>
             }
-            <partial name="~/Views/Models/_Category.cshtml" model="@Model.data"/>
         </section>
     </div>
 </div>

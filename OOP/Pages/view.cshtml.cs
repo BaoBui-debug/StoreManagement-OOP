@@ -1,22 +1,20 @@
 ﻿using Entity;
-using Logic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Presentation.Models;
 
 namespace Presentation.Pages
 {
     public class ViewModel : PageModel
     {
-        private static readonly string _FilePath = "C:\\Users\\ACER\\OneDrive\\Desktop\\Programming Stuff\\RAZOR\\Storage\\Product.txt";
-        private static readonly string _CaFilePath = "C:\\Users\\ACER\\OneDrive\\Desktop\\Programming Stuff\\RAZOR\\Storage\\Category.txt";
-        private readonly Operator<Product> _Operator = new(_FilePath);
-        private readonly Operator<Category> _CaOperator = new(_CaFilePath);
-        public List<Category> data = [];
+        private static ProductController _ProductController = new();
+        private static CategoryController _CategoryController = new();
+        public List<Product> Products = _ProductController.FetchData();
+        public List<Category> Categories = _CategoryController.FetchData();
+        public string? id;
         public void OnGet()
         {
-            string item = Request.Query["i"].ToString();
-            data = _CaOperator.GetList();
-
+            id = Request.Query["i"].ToString();
         }
     }
 }

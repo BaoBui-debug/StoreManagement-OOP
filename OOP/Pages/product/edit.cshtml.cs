@@ -3,15 +3,15 @@ using Logic.Validator;
 using Logic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Presentation.Models;
 
 namespace Presentation.Pages.product
 {
     public class EditModel : PageModel
     {
-        private static readonly string _FilePath = "C:\\Users\\ACER\\OneDrive\\Desktop\\Programming Stuff\\RAZOR\\Storage\\Product.txt";
-        private readonly Operator<Product> _Operator = new(_FilePath);
-        private readonly ProductValidator _Validator = new(_FilePath);
-        private readonly Seeker _ItemSeeker = new(_FilePath);
+        private static readonly ProductController _Controller = new();
+        private readonly ProductValidator _Validator = new(_Controller.FilePath);
+        private readonly Seeker _ItemSeeker = new(_Controller.FilePath);
         public string? Feedback;
 
         public string DefId = "";
@@ -69,7 +69,7 @@ namespace Presentation.Pages.product
                 ServiceResult EndResult = _Validator.Update(newP, index);
                 if (EndResult.IsSuccess())
                 {
-                    _Operator.Update(newP, index);
+                    _Controller.Operator.Update(newP, index);
                 }
             }
             catch (Exception ex)

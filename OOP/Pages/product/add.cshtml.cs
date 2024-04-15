@@ -1,6 +1,7 @@
 ﻿using Entity;
 using Logic.Validator;
 using Logic;
+using Presentation.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -8,9 +9,8 @@ namespace Presentation.Pages.product
 {
     public class AddModel : PageModel
     {
-        private static readonly string _FilePath = "C:\\Users\\ACER\\OneDrive\\Desktop\\Programming Stuff\\RAZOR\\Storage\\Product.txt";
-        private readonly Operator<Product> _Operator = new(_FilePath);
-        private readonly ProductValidator _Validator = new(_FilePath);
+        private static ProductController _Controller = new();
+        private readonly ProductValidator _Validator = new(_Controller.FilePath);
         public string? FeedBack;
         [BindProperty]
         public string Id { get; set; } = "";
@@ -42,7 +42,7 @@ namespace Presentation.Pages.product
                 ServiceResult EndResult = _Validator.Add(newP);
                 if (EndResult.IsSuccess())
                 {
-                    _Operator.Add(newP);
+                    _Controller.Operator.Add(newP);
                 }
             }
             catch (Exception ex)
