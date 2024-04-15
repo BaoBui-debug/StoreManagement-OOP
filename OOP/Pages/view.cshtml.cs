@@ -12,9 +12,31 @@ namespace Presentation.Pages
         public List<Product> Products = _ProductController.FetchData();
         public List<Category> Categories = _CategoryController.FetchData();
         public string? id;
+        public string? Entity;
         public void OnGet()
         {
+            /*
+             pr : Product
+            ct : Category
+            ip : Imports
+            iv : Invoices
+            */
             id = Request.Query["i"].ToString();
+            switch(id) 
+            {
+                case "pr":
+                    Entity = "product";
+                    break;
+                case "ct":
+                    Entity = "category";
+                    break;
+                case "ip":
+                    Entity = "imports";
+                    break;
+                case "iv":
+                    Entity = "invoices";
+                    break;
+            }
         }
     }
 }
