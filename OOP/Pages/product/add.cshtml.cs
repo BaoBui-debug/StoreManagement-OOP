@@ -9,7 +9,7 @@ namespace Presentation.Pages.product
 {
     public class AddModel : PageModel
     {
-        private static ProductController _Controller = new();
+        private static readonly ProductController _Controller = new();
         private readonly ProductValidator _Validator = new(_Controller.FilePath);
         public string? FeedBack;
         [BindProperty]
