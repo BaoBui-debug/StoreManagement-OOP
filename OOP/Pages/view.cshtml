@@ -1,5 +1,6 @@
 ﻿@page
 @model Presentation.Pages.ViewModel
+@using Entity;
 
 <div class="container">
     <div class="row">
@@ -103,14 +104,11 @@
                     <div class="form-floating">
                         <select class="form-select form-select-sm text-primary" name="category">
                             <option value="all" selected>Tất cả</option>
-                            @{
-                                /*
-                                 
+                            @{      
                                 foreach (Category c in Model.Categories)
                                 {
                                     <option value="@c.Name">@c.Name</option>
                                 }
-                                 */
                             }
                         </select>
                         <label for="floatingSelect">Loại sản phẩm</label>

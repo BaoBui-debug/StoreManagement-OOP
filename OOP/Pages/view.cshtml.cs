@@ -1,4 +1,5 @@
 ﻿using Entity;
+using Logic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Presentation.Models;
@@ -11,6 +12,7 @@ namespace Presentation.Pages
         private static CategoryController _CategoryController = new();
         public List<Product> Products = _ProductController.FetchData();
         public List<Category> Categories = _CategoryController.FetchData();
+        private Seeker _ProductSeeker = new(_ProductController.FilePath);
         public string? id;
         public string? Entity;
         public string? FeedBack;
@@ -40,7 +42,7 @@ namespace Presentation.Pages
             switch (id) 
             {
                 case "pr":
-                    Products = _ProductController.FetchData().FindAll(p => p.GetIdentifier() == request);
+                    Products = _ProductSeeker.FilterList(request);
                     FeedBack = Products.Count > 0 ? $"Tìm thấy {Products.Count} kết quả" : "Không tìm thấy kết quả nào";
                     break;
                 case "ct":

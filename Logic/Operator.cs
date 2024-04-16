@@ -28,9 +28,6 @@ namespace Logic
             list.RemoveAt(index);
             _Accessor.Write(list);
         }
-        public void Search(string id)
-        {
-        }
         public List<T> GetList()
         {
             return _Accessor.Read();

@@ -13,8 +13,7 @@ namespace Presentation.Pages.product
         public void OnPost()
         {
             string id = Request.Query["id"].ToString();
-            _ItemSeeker.LookForProduct(id);
-            _Controller.Operator.Delete(_ItemSeeker.GetIndex());
+            _Controller.Operator.Delete(_ItemSeeker.GetIndex(id));
             Response.Redirect("/product/add");
         }
     }

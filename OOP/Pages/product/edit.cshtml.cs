@@ -42,7 +42,7 @@ namespace Presentation.Pages.product
         public void OnGet()
         {
             string id = Request.Query["id"].ToString();
-            Product result = _ItemSeeker.LookForProduct(id);
+            Product result = _ItemSeeker.LookForItem(id);
             DefId = result.Id;
             DefName = result.Name;
             DefPrice = result.Price;
@@ -55,8 +55,7 @@ namespace Presentation.Pages.product
         public void OnPost()
         {
             string id = Request.Query["id"].ToString();
-            _ItemSeeker.LookForProduct(id);
-            int index = _ItemSeeker.GetIndex();
+            int index = _ItemSeeker.GetIndex(id);
             if (TypeChecker.IsInputInvalid(Price.ToString(), Quantity.ToString(), Mfg.ToString(), Exp.ToString()))
             {
                 Feedback = "Kiểu dữ liệu không đúng";

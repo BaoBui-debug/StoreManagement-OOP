@@ -11,16 +11,24 @@ namespace Logic
         {
             this._FilePath = filePath;
         }
-        public Product LookForProduct(string id)
+        public Product LookForItem(string id)
         {
             Accessor<Product> list = new(_FilePath);
             Product? p = list.Read().Find(e => e.GetIdentifier() == id);
             _index = list.Read().FindIndex(e => e.GetIdentifier() == id);
             return p ?? throw new Exception("Không tìm thấy sản phẩm");
         }
-        public int GetIndex()
+        public List<Product> FilterList(string request)
         {
-            return _index;
+            Accessor<Product> list = new(_FilePath);
+            List<Product> resultA = list.Read().FindAll(e => e.GetIdentifier() == request);
+            List<Product> resultB = list.Read().FindAll(e => e.Name.ToLower().Contains(request.ToLower()));
+            return resultA.Count > 0 ? resultA : resultB;
+        }
+        public int GetIndex(string id)
+        {
+            Accessor<Product> list = new(_FilePath);
+            return list.Read().FindIndex(e => e.GetIdentifier() == id);
         }
     }
 }
