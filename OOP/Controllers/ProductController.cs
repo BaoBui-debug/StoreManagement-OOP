@@ -22,9 +22,9 @@ namespace Presentation.Controllers
         {
             return _Operator.GetList();
         }
-        public int GetIndex(string id)
+        public int GetIndex(string request)
         {
-            return _Filter.GetIndex(id);
+            return _Filter.GetIndex(request);
         }
         public void HandleAdd(Product p) 
         {

@@ -1,49 +1,52 @@
-﻿using Entity;
-using DataAccess;
+﻿using DataAccess;
+using Entity;
+
 namespace Logic.Validator
 {
     public class ProductValidator
     {
-        private ServiceResult Result { get; set; } = new();
-        private Accessor<Product> Accessor { get; set; }
+        private readonly ServiceResult _Result;
+        private readonly Accessor<Product> _Accessor;
         public ProductValidator(string filePath)
         {
-            this.Accessor = new(filePath);
+            this._Accessor = new(filePath);
+            this._Result = new();
         }
         public ServiceResult Add(Product newItem)
         {
             if (!newItem.IsDataComplete())
             {
-                Result.AddError("Không được phép thêm trường rỗng");
+                _Result.AddError("Không được phép thêm trường rỗng");
             }
             if (IdExisted(newItem))
             {
-                Result.AddError("Mã sản phẩm đã tồn tại trong cơ sở dữ liệu");
+                _Result.AddError("Mã sản phẩm đã tồn tại trong cơ sở dữ liệu");
             }
-            return Result;
+            return _Result;
         }
         public ServiceResult Update(Product successor, int index)
         {
             if (!successor.IsDataComplete())
             {
-                Result.AddError("Không được phép thêm trường rỗng");
+                _Result.AddError("Không được phép thêm trường rỗng");
             }
             if (SuccessorUnchanged(successor, index))
             {
-                Result.AddError("Thông tin không thay đổi, vui lòng cập nhật thông tin sản phẩm");
+                _Result.AddError("Thông tin không thay đổi, vui lòng cập nhật thông tin sản phẩm");
             }
-            return Result;
+            return _Result;
         }
         private bool IdExisted(Product newItem)
         {
-            return Accessor.Read().Exists(e => e.GetIdentifier() == newItem.GetIdentifier());
+            return _Accessor.Read().Exists(e => e.GetIdentifier() == newItem.GetIdentifier());
         }
         private bool SuccessorUnchanged(Product successor, int index)
         {
-            Product precursor = Accessor.Read()[index];
+            Product precursor = _Accessor.Read()[index];
             return Helper.IsDataUnchanged(precursor, successor);
         }
     }
+    /*
     public class ServiceResult
     {
         private readonly List<string> _Unresolved = [];
@@ -64,4 +67,5 @@ namespace Logic.Validator
             throw new Exception(_Unresolved[0]);
         }
     }
+     */
 }

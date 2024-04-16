@@ -22,5 +22,13 @@ namespace Presentation.Controllers
         {
             return _Operator.GetList();
         }
+        public int GetIndex(string request) 
+        {
+            return _Filter.GetIndex(request);
+        }
+        public void HandleAdd(Category newC)
+        {
+            _Operator.Add(newC);
+        }
     }
 }

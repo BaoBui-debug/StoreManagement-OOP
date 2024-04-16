@@ -13,7 +13,7 @@ namespace Entity
         }
         public bool IsDataComplete()
         {
-            return Name != null && Quantity > 0;
+            return !string.IsNullOrEmpty(Name);
         }
         public List<string> DataToStringList()
         {
