@@ -1,5 +1,6 @@
 ﻿@page
 @model Presentation.Pages.product.AddModel
+@using Entity
 
 <h1 class="text-danger">@Model.FeedBack</h1>
 <h3 class="text-center">Nhập thông tin sản phẩm</h3>
@@ -32,7 +33,12 @@
             <select class="form-select" name="category">
                 <span class="invalid-feedback"></span>
                 <option selected hidden></option>
-                <option value="ABC">ABC</option>
+                @{
+                    foreach(Category c in Model.categories)
+                    {
+                        <option value="@c.Name">@c.Name</option>           
+                    }
+                }
             </select>
         </div>
         <div class="col-md-5">

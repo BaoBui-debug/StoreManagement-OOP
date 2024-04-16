@@ -11,6 +11,7 @@ namespace Presentation.Pages.product
     {
         private static readonly ProductController _Controller = new();
         private readonly ProductValidator _Validator = new(_Controller.FilePath);
+        public List<Category> categories = [];
         public string? FeedBack;
         [BindProperty]
         public string Id { get; set; } = "";
@@ -28,6 +29,11 @@ namespace Presentation.Pages.product
         public DateOnly Mfg { get; set; }
         [BindProperty]
         public DateOnly? Exp { get; set; }
+        public void OnGet()
+        {
+            CategoryController CategoryController = new();
+            categories = CategoryController.FetchData();
+        }
         public void OnPost()
         {
             if (TypeChecker.IsInputInvalid(Price.ToString(), Quantity.ToString(), Mfg.ToString(), Exp.ToString()))

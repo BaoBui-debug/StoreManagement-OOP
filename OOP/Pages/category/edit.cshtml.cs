@@ -36,6 +36,7 @@ namespace Presentation.Pages.category
             catch(Exception ex) 
             {
                 FeedBack = ex.Message;
+                Status = "is-invalid";
             }
         }
     }

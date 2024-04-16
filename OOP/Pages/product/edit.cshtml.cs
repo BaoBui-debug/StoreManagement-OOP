@@ -11,6 +11,7 @@ namespace Presentation.Pages.product
     {
         private static readonly ProductController _Controller = new();
         private readonly ProductValidator _Validator = new(_Controller.FilePath);
+        public List<Category> categories = [];
         public string? Feedback;
 
         public string DefId = "";
@@ -50,6 +51,9 @@ namespace Presentation.Pages.product
             DefCompany = result.Company;
             DefMfg = result.Mfg;
             DefExp = result.Exp ?? DateOnly.MinValue;
+            
+            CategoryController CategoryController = new();
+            categories = CategoryController.FetchData();
         }
         public void OnPost()
         {
