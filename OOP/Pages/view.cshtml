@@ -116,12 +116,12 @@
                 </div>
             </form>
             @{
-                switch (Model.Entity)
+                switch (Model.id)
                 {
-                    case "product":
+                    case "pr":
                     <partial name="~/Views/Models/_Product.cshtml" model="@Model.Products"/>
                     break;
-                    case "category":
+                    case "ct":
                         <partial name="~/Views/Models/_Category.cshtml" model="@Model.Categories"/>
                         break;
                     default:

@@ -16,9 +16,8 @@ namespace Logic.ItemSeekers
         }
         public List<Category> FilterList(string request)
         {
-            List<Category> resultA = _Operator.GetList().FindAll(e => e.GetIdentifier() == request);
-            List<Category> resultB = _Operator.GetList().FindAll(e => e.Name.ToLower().Contains(request.ToLower()));
-            return resultA.Count > 0 ? resultA : resultB;
+            List<Category> result = _Operator.GetList().FindAll(e => e.Name.ToLower().Contains(request.ToLower()));
+            return result;
         }
         public int GetIndex(string id)
         {

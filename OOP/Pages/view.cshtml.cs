@@ -9,12 +9,13 @@ namespace Presentation.Pages
         private readonly ProductController _ProductController = new();
         private readonly CategoryController _CategoryController = new();
         public List<Product> Products = [];
-        public List<Category> Categories = []; 
+        public List<Category> Categories = [];
+        public string? id;
         public string? Entity;
         public string? FeedBack;
         public void OnGet()
         {
-            string id = Request.Query["i"].ToString();
+            id = Request.Query["i"].ToString();
             switch (id)
             {
                 case "pr":
@@ -36,7 +37,7 @@ namespace Presentation.Pages
         public void OnPost()
         {
             string request = Request.Form["search"].ToString();
-            string id = Request.Query["i"].ToString();
+            id = Request.Query["i"].ToString();
             switch (id) 
             {
                 case "pr":
