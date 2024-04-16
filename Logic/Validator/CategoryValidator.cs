@@ -34,6 +34,10 @@ namespace Logic.Validator
             {
                 _Result.AddError("Thông tin không thay đổi, vui lòng cập nhật thông tin sản phẩm");
             }
+            if (NameExisted(successor))
+            {
+                _Result.AddError("Phân loại này đã tồn tại trong cơ sở dữ liệu");
+            }
             return _Result;
         }
         private bool NameExisted(Category newItem)

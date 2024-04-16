@@ -30,5 +30,9 @@ namespace Presentation.Controllers
         {
             _Operator.Add(newC);
         }
+        public void HandleUpdate(Category successor, int index)
+        {
+            _Operator.Update(successor, index);
+        }
     }
 }

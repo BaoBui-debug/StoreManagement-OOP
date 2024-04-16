@@ -7,8 +7,8 @@ namespace Presentation.Pages.category
 {
     public class AddModel : PageModel
     {
-        private static CategoryController _Controller = new();
-        private CategoryValidator _Validator = new(_Controller.FilePath);
+        private static readonly CategoryController _Controller = new();
+        private readonly CategoryValidator _Validator = new(_Controller.FilePath);
         public string? FeedBack;
         public string? Status;
         public void OnPost()
@@ -21,6 +21,7 @@ namespace Presentation.Pages.category
                 if(EndResult.IsSuccess())
                 {
                     _Controller.HandleAdd(newC);
+                    Response.Redirect("/view?i=ct");
                 }
             }
             catch(Exception ex)  

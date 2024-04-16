@@ -1,0 +1,17 @@
+﻿@page
+@model Presentation.Pages.category.EditModel
+
+<h5 class="text-center">Sửa loại hàng</h5>
+<div class="col text-center">
+    <div class="row">
+        <div class="d-flex justify-content-center">
+            <form class="w-50 form-floating" method="post">
+                <input type="text" name="name" class="form-control @Model.Status" value="@Model.CurrentName" maxlength="30">
+                <span class="invalid-feedback">@Model.FeedBack</span>
+                <label for="floatingInputValue">Tên phân loại</label>
+                <a href="/view?i=ct" class="btn btn-secondary m-2">Hủy</a>
+                <button type="submit" class="btn btn-primary m-2">Sửa</button>
+            </form>
+        </div>
+    </div>
+</div>
