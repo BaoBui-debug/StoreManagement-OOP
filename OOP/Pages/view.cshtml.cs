@@ -1,8 +1,7 @@
 ﻿using Entity;
-using Logic;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using Logic.ItemSeekers;
 using Presentation.Models;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Presentation.Pages
 {
@@ -12,7 +11,7 @@ namespace Presentation.Pages
         private static CategoryController _CategoryController = new();
         public List<Product> Products = _ProductController.FetchData();
         public List<Category> Categories = _CategoryController.FetchData();
-        private Seeker _ProductSeeker = new(_ProductController.FilePath);
+        private ProductFilter _ProductSeeker = new(_ProductController.FilePath);
         public string? id;
         public string? Entity;
         public string? FeedBack;

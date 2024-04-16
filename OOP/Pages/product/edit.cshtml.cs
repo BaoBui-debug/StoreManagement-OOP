@@ -1,6 +1,7 @@
 ﻿using Entity;
 using Logic.Validator;
 using Logic;
+using Logic.ItemSeekers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Presentation.Models;
@@ -11,7 +12,7 @@ namespace Presentation.Pages.product
     {
         private static readonly ProductController _Controller = new();
         private readonly ProductValidator _Validator = new(_Controller.FilePath);
-        private readonly Seeker _ItemSeeker = new(_Controller.FilePath);
+        private readonly ProductFilter _ItemSeeker = new(_Controller.FilePath);
         public string? Feedback;
 
         public string DefId = "";
