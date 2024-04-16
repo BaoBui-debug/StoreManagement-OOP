@@ -31,8 +31,20 @@
         </nav>
     </header>
     <div class="container">
-            <a href="/view?i=pr"> Sản Phẩm </a>
-            <a href="/view?i=ct"> Phân Loại </a>
+        <ul class="nav justify-content-center my-3">
+            <li class="nav-item">
+                <a class="nav-link" id="pr" href="/view?i=pr">Sản Phẩm</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="ct" href="/view?i=ct">Phân Loại</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" id="ip">Hóa Đơn Nhập Hàng</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" id="iv">Hóa Đơn Bán Hàng</a>
+            </li>
+        </ul>
         <main role="main" class="pb-3">
             @RenderBody()
             <script type="text/javascript">
