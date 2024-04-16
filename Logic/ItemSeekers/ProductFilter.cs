@@ -1,29 +1,28 @@
 ﻿using Entity;
-using DataAccess;
 
 namespace Logic.ItemSeekers
 {
     public class ProductFilter
     {
-        private readonly Accessor<Product> _Accessor;
-        public ProductFilter(string filePath)
+        private readonly Operator<Product> _Operator;
+        public ProductFilter(Operator<Product> newOperator)
         {
-            this._Accessor = new(filePath);
+            this._Operator = newOperator;
         }
         public Product LookForItem(string id)
         {
-            Product? p = _Accessor.Read().Find(e => e.GetIdentifier() == id);
+            Product? p = _Operator.GetList().Find(e => e.GetIdentifier() == id);
             return p ?? throw new Exception("Không tìm thấy sản phẩm");
         }
         public List<Product> FilterList(string request)
         {
-            List<Product> resultA = _Accessor.Read().FindAll(e => e.GetIdentifier() == request);
-            List<Product> resultB = _Accessor.Read().FindAll(e => e.Name.ToLower().Contains(request.ToLower()));
+            List<Product> resultA = _Operator.GetList().FindAll(e => e.GetIdentifier() == request);
+            List<Product> resultB = _Operator.GetList().FindAll(e => e.Name.ToLower().Contains(request.ToLower()));
             return resultA.Count > 0 ? resultA : resultB;
         }
         public int GetIndex(string id)
         {
-            return _Accessor.Read().FindIndex(e => e.GetIdentifier() == id);
+            return _Operator.GetList().FindIndex(e => e.GetIdentifier() == id);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Presentation.Pages
         private static CategoryController _CategoryController = new();
         public List<Product> Products = _ProductController.FetchData();
         public List<Category> Categories = _CategoryController.FetchData();
-        private ProductFilter _ProductSeeker = new(_ProductController.FilePath);
+        private ProductFilter _ProductSeeker = new(_ProductController.Operator);
         public string? id;
         public string? Entity;
         public string? FeedBack;
