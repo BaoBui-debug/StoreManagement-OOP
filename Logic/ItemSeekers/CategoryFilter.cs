@@ -9,11 +9,6 @@ namespace Logic.ItemSeekers
         {
             this._Operator = newOperator;
         }
-        public Category LookForItem(string id)
-        {
-            Category? p = _Operator.GetList().Find(e => e.GetIdentifier() == id);
-            return p ?? throw new Exception("Không tìm thấy phân loại sản phẩm");
-        }
         public List<Category> FilterList(string request)
         {
             List<Category> result = _Operator.GetList().FindAll(e => e.Name.ToLower().Contains(request.ToLower()));
