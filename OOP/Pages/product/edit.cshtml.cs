@@ -1,7 +1,6 @@
 ﻿using Entity;
 using Logic.Validator;
 using Logic;
-using Logic.ItemSeekers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Presentation.Models;
@@ -12,7 +11,6 @@ namespace Presentation.Pages.product
     {
         private static readonly ProductController _Controller = new();
         private readonly ProductValidator _Validator = new(_Controller.FilePath);
-        private readonly ProductFilter _ItemSeeker = new(_Controller.Operator);
         public string? Feedback;
 
         public string DefId = "";
@@ -43,7 +41,7 @@ namespace Presentation.Pages.product
         public void OnGet()
         {
             string id = Request.Query["id"].ToString();
-            Product result = _ItemSeeker.LookForItem(id);
+            Product result = _Controller.HandleSearch(id)[0];
             DefId = result.Id;
             DefName = result.Name;
             DefPrice = result.Price;
@@ -56,7 +54,7 @@ namespace Presentation.Pages.product
         public void OnPost()
         {
             string id = Request.Query["id"].ToString();
-            int index = _ItemSeeker.GetIndex(id);
+            int index = _Controller.GetIndex(id);
             if (TypeChecker.IsInputInvalid(Price.ToString(), Quantity.ToString(), Mfg.ToString(), Exp.ToString()))
             {
                 Feedback = "Kiểu dữ liệu không đúng";
@@ -69,7 +67,8 @@ namespace Presentation.Pages.product
                 ServiceResult EndResult = _Validator.Update(newP, index);
                 if (EndResult.IsSuccess())
                 {
-                    _Controller.Operator.Update(newP, index);
+                    _Controller.HandleUpdate(newP, index);
+                    Response.Redirect("/view?i=pr");
                 }
             }
             catch (Exception ex)

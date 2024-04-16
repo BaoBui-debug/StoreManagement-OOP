@@ -1,5 +1,4 @@
 ﻿using Entity;
-using Logic.ItemSeekers;
 using Presentation.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -7,11 +6,10 @@ namespace Presentation.Pages
 {
     public class ViewModel : PageModel
     {
-        private static ProductController _ProductController = new();
-        private static CategoryController _CategoryController = new();
-        public List<Product> Products = _ProductController.FetchData();
-        public List<Category> Categories = _CategoryController.FetchData();
-        private ProductFilter _ProductSeeker = new(_ProductController.Operator);
+        private readonly ProductController _ProductController = new();
+        private readonly CategoryController _CategoryController = new();
+        public List<Product> Products = [];
+        public List<Category> Categories = []; 
         public string? id;
         public string? Entity;
         public string? FeedBack;
@@ -33,6 +31,8 @@ namespace Presentation.Pages
                     Entity = "invoices";
                     break;
             }
+            Products = _ProductController.FetchData();
+            Categories = _CategoryController.FetchData();
         }
         public void OnPost()
         {
@@ -41,11 +41,11 @@ namespace Presentation.Pages
             switch (id) 
             {
                 case "pr":
-                    Products = _ProductSeeker.FilterList(request);
+                    Products = _ProductController.HandleSearch(request);
                     FeedBack = Products.Count > 0 ? $"Tìm thấy {Products.Count} kết quả" : "Không tìm thấy kết quả nào";
                     break;
                 case "ct":
-                    Categories = _CategoryController.FetchData().FindAll(c => c.GetIdentifier() == request);
+                    Categories = _CategoryController.HandleSearch(request);
                     FeedBack = Categories.Count > 0 ? $"Tìm thấy {Categories.Count} kết quả" : "Không tìm thấy kết quả nào";
                     break;
             }

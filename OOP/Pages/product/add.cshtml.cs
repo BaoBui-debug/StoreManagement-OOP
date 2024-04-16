@@ -42,7 +42,8 @@ namespace Presentation.Pages.product
                 ServiceResult EndResult = _Validator.Add(newP);
                 if (EndResult.IsSuccess())
                 {
-                    _Controller.Operator.Add(newP);
+                    _Controller.HandleAdd(newP);
+                    Response.Redirect("/view?i=pr");
                 }
             }
             catch (Exception ex)
