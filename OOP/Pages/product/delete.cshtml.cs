@@ -1,4 +1,4 @@
-﻿using Presentation.Models;
+﻿using Presentation.Controllers;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Presentation.Pages.product

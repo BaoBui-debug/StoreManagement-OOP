@@ -1,5 +1,5 @@
 ﻿using Entity;
-using Presentation.Models;
+using Presentation.Controllers;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Presentation.Pages
@@ -10,12 +10,11 @@ namespace Presentation.Pages
         private readonly CategoryController _CategoryController = new();
         public List<Product> Products = [];
         public List<Category> Categories = []; 
-        public string? id;
         public string? Entity;
         public string? FeedBack;
         public void OnGet()
         {
-            id = Request.Query["i"].ToString();
+            string id = Request.Query["i"].ToString();
             switch (id)
             {
                 case "pr":
@@ -36,8 +35,8 @@ namespace Presentation.Pages
         }
         public void OnPost()
         {
-            id = Request.Query["i"].ToString();
             string request = Request.Form["search"].ToString();
+            string id = Request.Query["i"].ToString();
             switch (id) 
             {
                 case "pr":

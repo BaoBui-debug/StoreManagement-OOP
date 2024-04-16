@@ -2,7 +2,7 @@
 using Logic;
 using Logic.ItemSeekers;
 
-namespace Presentation.Models
+namespace Presentation.Controllers
 {
     public class CategoryController
     {

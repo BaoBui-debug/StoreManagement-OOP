@@ -3,7 +3,7 @@ using Logic.Validator;
 using Logic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Presentation.Models;
+using Presentation.Controllers;
 
 namespace Presentation.Pages.product
 {
