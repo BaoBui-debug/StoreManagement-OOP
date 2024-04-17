@@ -11,6 +11,7 @@ namespace Presentation.Pages.product
     {
         private static readonly ProductController _Controller = new();
         private readonly ProductValidator _Validator = new(_Controller.FilePath);
+        private readonly ImportController _ImportController = new();
         public List<Category> categories = [];
         public string? FeedBack;
         [BindProperty]
@@ -50,8 +51,7 @@ namespace Presentation.Pages.product
                 {
                     _Controller.HandleAdd(newP);
                     Import newI = new(Id, Name, Price, Quantity);
-                    ImportController importController = new();
-                    importController.HandleAdd(newI);
+                    _ImportController.HandleAdd(newI);
                     Response.Redirect("/view?i=pr");
                 }
             }

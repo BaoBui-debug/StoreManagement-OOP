@@ -7,6 +7,7 @@ namespace Presentation.Pages.category
     public class DeleteModel : PageModel
     {
         private static readonly CategoryController _Controller = new();
+        private readonly ProductController _ProductController = new();
         public string? Message;
         public void OnGet()
         {
@@ -19,8 +20,7 @@ namespace Presentation.Pages.category
             string id = Request.Query["id"].ToString();
             Category target = _Controller.HandleSearch(id)[0];
             _Controller.HandleRemove(_Controller.GetIndex(id));
-            ProductController productController = new();
-            productController.OnCategoryDelete(target);
+            _ProductController.OnCategoryDelete(target);
             Response.Redirect("/view?i=ct");
         }
     }

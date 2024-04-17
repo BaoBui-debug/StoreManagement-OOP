@@ -9,6 +9,7 @@ namespace Presentation.Pages.category
     {
         private static readonly CategoryController _Controller = new();
         private readonly CategoryValidator _Validator = new(_Controller.FilePath);
+        private readonly ProductController _ProductController = new();
         public string CurrentName = string.Empty;
         public string? Note;
         public string? FeedBack;
@@ -31,9 +32,8 @@ namespace Presentation.Pages.category
                 ServiceResult EndResult = _Validator.Update(Successor, index);
                 if(EndResult.IsSuccess())
                 {
-                    ProductController productController = new();
-                    productController.OnCategoryModify(Precursor, Successor);
                     _Controller.HandleUpdate(Successor, index);
+                    _ProductController.OnCategoryModify(Precursor, Successor);
                     Response.Redirect("/view?i=ct");
                 }
             }
