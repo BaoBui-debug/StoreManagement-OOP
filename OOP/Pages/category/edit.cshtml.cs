@@ -29,6 +29,8 @@ namespace Presentation.Pages.category
                 ServiceResult EndResult = _Validator.Update(Successor, index);
                 if(EndResult.IsSuccess())
                 {
+                    ProductController productController = new();
+                    productController.OnCategoryModify(Precursor, Successor);
                     _Controller.HandleUpdate(Successor, index);
                     Response.Redirect("/view?i=ct");
                 }

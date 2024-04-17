@@ -11,7 +11,7 @@ namespace Presentation.Pages
         public List<Product> Products = [];
         public List<Category> Categories = [];
         public string? id;
-        public string? Entity;
+        public string? Navigate;
         public string? FeedBack;
         public void OnGet()
         {
@@ -19,16 +19,16 @@ namespace Presentation.Pages
             switch (id)
             {
                 case "pr":
-                    Entity = "product";
+                    Navigate = "product";
                     break;
                 case "ct":
-                    Entity = "category";
+                    Navigate = "category";
                     break;
                 case "ip":
-                    Entity = "imports";
+                    Navigate = "imports";
                     break;
                 case "iv":
-                    Entity = "invoices";
+                    Navigate = "invoices";
                     break;
             }
             Products = _ProductController.FetchData();

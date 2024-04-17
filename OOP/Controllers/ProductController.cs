@@ -38,5 +38,17 @@ namespace Presentation.Controllers
         {
             _Operator.Update(p, index);
         }
+        public void OnCategoryModify(Category precursor, Category successor)
+        {
+            List<Product> prList = FetchData();
+            foreach(Product pr in prList)
+            {
+                if(pr.Category.Name == precursor.Name)
+                {
+                    pr.Category.Name = successor.Name;
+                    HandleUpdate(pr, prList.IndexOf(pr));
+                }
+            }
+        }
     }
 }
