@@ -30,6 +30,10 @@ namespace Presentation.Controllers
         {
             _Operator.Add(newC);
         }
+        public void HandleRemove(int index) 
+        {
+            _Operator.Delete(index);
+        }
         public void HandleUpdate(Category successor, int index)
         {
             _Operator.Update(successor, index);

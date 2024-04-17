@@ -1,0 +1,13 @@
+﻿@page
+@model Presentation.Pages.category.DeleteModel
+
+<div class="text-center">
+    <partial name="_Danger" model="@Model.Message" />
+    <h5>Bạn có chắc chắn muốn xóa phân loại này?</h5>
+    <div class="d-flex justify-content-center">
+        <a href="/view?i=ct" class="btn btn-primary m-2">Hủy</a>
+        <form method="post">
+            <button class="btn btn-danger m-2">Xóa</button>
+        </form>
+    </div>
+</div>
