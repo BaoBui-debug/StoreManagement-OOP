@@ -23,7 +23,7 @@ namespace Entity
         }
         public bool FieldsOccupied()
         {
-            return Id != null && Name != null && Price != 0 && Category != null && Company != null;
+            return Id != null && Name != null && Price != 0 && Category.Name != null && Category.Quantity > 0 && Company != null;
         }
         public bool DateValid()
         {
