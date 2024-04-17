@@ -17,7 +17,10 @@ namespace Presentation.Pages.category
         public void OnPost()
         {
             string id = Request.Query["id"].ToString();
+            Category target = _Controller.HandleSearch(id)[0];
             _Controller.HandleRemove(_Controller.GetIndex(id));
+            ProductController productController = new();
+            productController.OnCategoryDelete(target);
             Response.Redirect("/view?i=ct");
         }
     }

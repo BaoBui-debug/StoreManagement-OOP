@@ -50,5 +50,16 @@ namespace Presentation.Controllers
                 }
             }
         }
+        public void OnCategoryDelete(Category c)
+        {
+            List<Product> prList = FetchData();
+            foreach(Product pr in prList)
+            {
+                if(pr.Category.Name == c.Name)
+                {
+                    HandleRemove(prList.IndexOf(pr));
+                }
+            }
+        }
     }
 }
