@@ -1,4 +1,4 @@
-using Entity;
+﻿using Entity;
 using Logic.Validator;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Presentation.Controllers;
@@ -10,6 +10,7 @@ namespace Presentation.Pages.category
         private static readonly CategoryController _Controller = new();
         private readonly CategoryValidator _Validator = new(_Controller.FilePath);
         public string CurrentName = string.Empty;
+        public string? Note;
         public string? FeedBack;
         public string? Status;
         public void OnGet()
@@ -17,6 +18,7 @@ namespace Presentation.Pages.category
             string id = Request.Query["id"].ToString();
             Category Precursor = _Controller.HandleSearch(id)[0];
             CurrentName = Precursor.Name;
+            Note = $"LƯU Ý: các sản phẩm thuộc phân loại {CurrentName} sẽ bị thay đổi";
         }
         public void OnPost() 
         {
