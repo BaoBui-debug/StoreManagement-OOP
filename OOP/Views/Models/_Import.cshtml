@@ -1,0 +1,35 @@
+﻿@using Entity;
+@model List<Import>
+
+<table class="table">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">Mã</th>
+            <th scope="col">Ngày thêm hóa đơn</th>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Giá / đơn vị</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Tổng giá trị</th>
+            <th scope="col">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (Import i in Model)
+            {
+                <tr class="text-center">
+                    <th scope="row">@i.Id</th>
+                    <td>@i.Date</td>
+                    <td>@i.Name</td>
+                    <td>@i.Price ₫</td>
+                    <td>@i.Quantity</td>
+                    <td>@i.Total ₫</td>
+                    <td>
+                        <a href="/import/edit?id=@i.GetIdentifier()" class="btn btn-primary">Sửa</a>
+                        <a href="/import/delete?id=@i.GetIdentifier()" class="btn btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

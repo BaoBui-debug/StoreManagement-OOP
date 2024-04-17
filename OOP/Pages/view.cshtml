@@ -123,10 +123,13 @@
                     break;
                     case "ct":
                         <partial name="~/Views/Models/_Category.cshtml" model="@Model.Categories"/>
-                        break;
+                    break;
+                    case "ip":
+                        <partial name="~/Views/Models/_Import.cshtml" model="@Model.Imports"/>
+                    break;
                     default:
                         <h4 class="text-danger">Yêu cầu không hợp lệ</h4>
-                        break;
+                    break;
                 }
             }
         </section>

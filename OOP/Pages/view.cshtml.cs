@@ -8,8 +8,10 @@ namespace Presentation.Pages
     {
         private readonly ProductController _ProductController = new();
         private readonly CategoryController _CategoryController = new();
+        private readonly ImportController _ImportController = new();
         public List<Product> Products = [];
         public List<Category> Categories = [];
+        public List<Import> Imports = [];
         public string? id;
         public string? Navigate;
         public string? FeedBack;
@@ -33,6 +35,7 @@ namespace Presentation.Pages
             }
             Products = _ProductController.FetchData();
             Categories = _CategoryController.SumUpAll(Products);
+            Imports = _ImportController.FetchData();
         }
         public void OnPost()
         {

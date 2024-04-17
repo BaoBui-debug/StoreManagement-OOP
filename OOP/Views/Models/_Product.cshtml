@@ -42,8 +42,8 @@
                     <td><strong><i>@p.Category.Name</i></strong></td>
                     <td><strong>@p.Category.Quantity</strong></td>
                     <td>
-                        <a href="/product/edit?id=@p.Id" class="btn btn-primary">Sửa</a>
-                        <a href="/product/delete?id=@p.Id" class="btn btn-danger">Xóa</a>
+                        <a href="/product/edit?id=@p.GetIdentifier()" class="btn btn-primary">Sửa</a>
+                        <a href="/product/delete?id=@p.GetIdentifier()" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>
             }
