@@ -32,7 +32,7 @@ namespace Presentation.Pages
                     break;
             }
             Products = _ProductController.FetchData();
-            Categories = _CategoryController.FetchData();
+            Categories = _CategoryController.SumUpAll(Products);
         }
         public void OnPost()
         {

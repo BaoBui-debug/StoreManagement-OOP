@@ -1,4 +1,5 @@
-﻿using Entity.Interface;
+﻿using Entity;
+using Entity.Interface;
 
 namespace Logic
 {

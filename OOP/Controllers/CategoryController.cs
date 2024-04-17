@@ -34,5 +34,24 @@ namespace Presentation.Controllers
         {
             _Operator.Update(successor, index);
         }
+        public List<Category> SumUpAll(List<Product> prList)
+        {
+            List<Category> ctList = FetchData();
+            foreach (Category c in ctList)
+            {
+                List<Product> Matched = prList.FindAll(p => p.Category.Name == c.Name);
+                if (Matched.Count > 0)
+                {
+                    int total = 0;
+                    foreach (Product p in Matched)
+                    {
+                        total += p.Category.Quantity;
+                    }
+                    c.Quantity = total;
+                    HandleUpdate(c, ctList.IndexOf(c));
+                }
+            }
+            return ctList;
+        }
     }
 }
