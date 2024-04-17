@@ -8,18 +8,16 @@ namespace Presentation.Controllers
     {
         public string FilePath = "C:\\Users\\ACER\\OneDrive\\Desktop\\Programming Stuff\\RAZOR\\Storage\\Import.txt";
         private readonly Operator<Import> _Operator;
-        //private readonly ImportFilter _Filter;
+        private readonly ImportFilter _Filter;
         public ImportController()
         {
             this._Operator = new(FilePath);
-            //this._Filter = new(_Operator);
+            this._Filter = new(_Operator);
         }
-        /*
-        public List<Product> HandleSearch(string request)
+        public List<Import> HandleSearch(string request)
         {
             return _Filter.FilterList(request);
         }
-         */
         public List<Import> FetchData()
         {
             return _Operator.GetList();

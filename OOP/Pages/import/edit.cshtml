@@ -1,0 +1,43 @@
+﻿@page
+@model Presentation.Pages.import.EditModel
+
+<h1 class="text-danger">@Model.FeedBack</h1>
+<h3 class="text-center">Cập nhật thông tin hóa đơn</h3>
+<div class="d-flex justify-content-center">
+    <form method="post" class="row g-3 w-50">
+        <div class="col-md-3">
+            <label for="id" class="form-label">Mã</label>
+            <input class="form-control" name="id" value="@Model.DefId">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-7">
+            <label for="name" class="form-label">Tên</label>
+            <input type="text" class="form-control" name="name" value="@Model.DefName">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-2">
+            <label for="quantity" class="form-label">Số lượng</label>
+            <input type="number" class="form-control" name="quantity" value="@Model.DefQuantity">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-6">
+            <label for="mfg" class="form-label">Ngày thêm hóa đơn</label>
+            <input type="date" class="form-control" name="date" value="@Model.DefDate.ToString("yyyy-MM-dd")"/>
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-3">
+            <label for="price" class="form-label">Giá / đơn vị</label>
+            <input class="form-control" name="price" value="@Model.DefPrice">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-3">
+            <label for="price" class="form-label">Tổng giá trị</label>
+            <input class="form-control" name="total" value="@Model.DefTotal" readonly>
+            <span class="invalid-feedback"></span>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Thêm</button>
+        </div>
+    </form>
+</div>
