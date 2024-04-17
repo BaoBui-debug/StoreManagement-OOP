@@ -10,13 +10,13 @@ namespace Entity
         public int Quantity { get; set; }
         public DateOnly Date {  get; set; }
         public int Total { get; }
-        public Import(string id, string name, int price, int quantity, DateOnly date)
+        public Import(string id, string name, int price, int quantity)
         {
             this.Id = id;
             this.Name = name;
             this.Price = price;
             this.Quantity = quantity;
-            this.Date = date;
+            this.Date = DateOnly.FromDateTime(DateTime.Now);
             this.Total = Price * Quantity;
         }
         public bool FieldsOccupied()

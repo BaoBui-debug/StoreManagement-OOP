@@ -49,6 +49,9 @@ namespace Presentation.Pages.product
                 if (EndResult.IsSuccess())
                 {
                     _Controller.HandleAdd(newP);
+                    Import newI = new(Id, Name, Price, Quantity);
+                    ImportController importController = new();
+                    importController.HandleAdd(newI);
                     Response.Redirect("/view?i=pr");
                 }
             }
