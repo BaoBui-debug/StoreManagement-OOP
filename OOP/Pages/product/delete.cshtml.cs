@@ -9,8 +9,8 @@ namespace Presentation.Pages.product
         public string Message = "Dữ liệu về sản phẩm này sẽ bị xóa vĩnh viễn";
         public void OnPost()
         {
-            string id = Request.Query["id"].ToString();
-            _Controller.HandleRemove(_Controller.GetIndex(id));
+            int index = int.Parse(Request.Query["id"].ToString());
+            _Controller.HandleRemove(index);
             Response.Redirect("/view?i=pr");
         }
     }

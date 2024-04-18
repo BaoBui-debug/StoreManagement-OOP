@@ -41,8 +41,8 @@ namespace Presentation.Pages.product
         public DateOnly? Exp { get; set; }
         public void OnGet()
         {
-            string id = Request.Query["id"].ToString();
-            Product result = _Controller.HandleSearch(id)[0];
+            int index = int.Parse(Request.Query["id"].ToString());
+            Product result = _Controller.FetchData()[index];
             DefId = result.Id;
             DefName = result.Name;
             DefPrice = result.Price;
@@ -57,8 +57,7 @@ namespace Presentation.Pages.product
         }
         public void OnPost()
         {
-            string id = Request.Query["id"].ToString();
-            int index = _Controller.GetIndex(id);
+            int index = int.Parse(Request.Query["id"].ToString());
             if (TypeChecker.IsInputInvalid(Price.ToString(), Quantity.ToString(), Mfg.ToString(), Exp.ToString()))
             {
                 Feedback = "Kiểu dữ liệu không đúng";

@@ -16,8 +16,8 @@ namespace Presentation.Pages.import
         public int DefTotal;
         public void OnGet()
         {
-            string id = Request.Query["id"].ToString();
-            Import I = _Controller.HandleSearch(id)[0];
+            int index = int.Parse(Request.Query["id"].ToString());
+            Import I = _Controller.FetchData()[index];
             DefId = I.Id;
             DefName = I.Name;
             DefPrice = I.Price;

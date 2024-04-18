@@ -17,33 +17,33 @@
     </thead>
     <tbody>
         @{
-            foreach (Product p in Model)
+            for (int i = 0;i < Model.Count; i++)
             {
                 <tr class="text-center">
-                    <th scope="row">@p.Id</th>
+                    <th scope="row">@Model[i].Id</th>
                     <td>
-                        <i>@p.Name</i>
+                        <i>@Model[i].Name</i>
                     </td>
-                    <td><i>@p.Mfg</i></td>
+                    <td><i>@Model[i].Mfg</i></td>
                     <td>
                         @{
-                            if (p.Exp == null)
+                            if (Model[i].Exp == null)
                             {
                                 <i><strong>Không có</strong></i>
                             }
                             else
                             {
-                                <i>@p.Exp.ToString()</i>
+                                <i>@Model[i].Exp.ToString()</i>
                             }
                         }
                     </td>
-                    <td><strong><i>@p.Company</i></strong></td>
-                    <td><i>@p.Price ₫</i></td>
-                    <td><strong><i>@p.Category.Name</i></strong></td>
-                    <td><strong>@p.Category.Quantity</strong></td>
+                    <td><strong><i>@Model[i].Company</i></strong></td>
+                    <td><i>@Model[i].Price ₫</i></td>
+                    <td><strong><i>@Model[i].Category.Name</i></strong></td>
+                    <td><strong>@Model[i].Category.Quantity</strong></td>
                     <td>
-                        <a href="/product/edit?id=@p.GetIdentifier()" class="btn btn-primary">Sửa</a>
-                        <a href="/product/delete?id=@p.GetIdentifier()" class="btn btn-danger">Xóa</a>
+                        <a href="/product/edit?id=@i" class="btn btn-primary">Sửa</a>
+                        <a href="/product/delete?id=@i" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>
             }

@@ -16,16 +16,15 @@ namespace Presentation.Pages.category
         public string? Status;
         public void OnGet()
         {
-            string id = Request.Query["id"].ToString();
-            Category Precursor = _Controller.HandleSearch(id)[0];
+            int index = int.Parse(Request.Query["id"].ToString());
+            Category Precursor = _Controller.FetchData()[index];
             CurrentName = Precursor.Name;
             Note = $"LƯU Ý: các sản phẩm thuộc phân loại {CurrentName} sẽ bị thay đổi";
         }
         public void OnPost() 
         {
-            string id = Request.Query["id"].ToString();
-            int index = _Controller.GetIndex(id);
-            Category Precursor = _Controller.HandleSearch(id)[0];
+            int index = int.Parse(Request.Query["id"].ToString());
+            Category Precursor = _Controller.FetchData()[index];
             Category Successor = new(Request.Form["name"].ToString(), Precursor.Quantity);
             try
             {

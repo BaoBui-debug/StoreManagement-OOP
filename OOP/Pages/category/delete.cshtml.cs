@@ -11,15 +11,15 @@ namespace Presentation.Pages.category
         public string? Message;
         public void OnGet()
         {
-            string id = Request.Query["id"].ToString();
-            Category target = _Controller.HandleSearch(id)[0];
+            int index = int.Parse(Request.Query["id"].ToString());
+            Category target = _Controller.FetchData()[index];
             Message = $"Phân loại {target.Name} và các sản phẩm thuộc phân loại này sẽ bị xóa vĩnh viễn";
         }
         public void OnPost()
         {
-            string id = Request.Query["id"].ToString();
-            Category target = _Controller.HandleSearch(id)[0];
-            _Controller.HandleRemove(_Controller.GetIndex(id));
+            int index = int.Parse(Request.Query["id"].ToString());
+            Category target = _Controller.FetchData()[index];
+            _Controller.HandleRemove(index);
             _ProductController.OnCategoryDelete(target);
             Response.Redirect("/view?i=ct");
         }
