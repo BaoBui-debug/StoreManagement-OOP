@@ -17,6 +17,7 @@
         @{
             foreach (Import i in Model)
             {
+                int index = 0;
                 if(i.Alive)
                 {    
                 <tr class="text-center">
@@ -29,8 +30,8 @@
                     <td>@i.Quantity</td>
                     <td>@i.Total ₫</td>
                     <td>
-                        <a href="/import/edit?id=@i.GetIdentifier()" class="btn btn-primary">Sửa</a>        
-                        <a href="/import/delete?id=@i.GetIdentifier()" class="btn btn-danger">Xóa</a>
+                        <a href="/import/edit?id=@index" class="btn btn-primary">Sửa</a>        
+                        <a href="/import/delete?id=@index" class="btn btn-danger">Xóa</a>
                     </td>
                     </tr>
                 }
@@ -46,7 +47,7 @@
                     <td>@i.Quantity</td>
                     <td>@i.Total ₫</td>
                     <td>
-                        <a href="/import/delete?id=@i.GetIdentifier()" class="btn btn-danger">Xóa</a>
+                        <a href="/import/delete?id=@index" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>
                 }
