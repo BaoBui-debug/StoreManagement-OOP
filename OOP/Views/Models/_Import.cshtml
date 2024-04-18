@@ -17,18 +17,11 @@
         @{
             foreach (Import i in Model)
             {
-                <tr class="text-center bg-warning bg-opacity-25">
+                if(i.Alive)
+                {    
+                <tr class="text-center">
                     <th scope="row">
-                        @{
-                            if(i.Alive)
-                            {
-                                @i.Id
-                            }
-                            else
-                            {
-                                <span class="badge rounded-pill bg-warning text-dark">Đã xóa</span>
-                            }
-                        }
+                        @i.Id
                     </th>
                     <td>@i.Date</td>
                     <td>@i.Name</td>
@@ -36,15 +29,27 @@
                     <td>@i.Quantity</td>
                     <td>@i.Total ₫</td>
                     <td>
-                        @{
-                        if (i.Alive)
-                        {
                         <a href="/import/edit?id=@i.GetIdentifier()" class="btn btn-primary">Sửa</a>        
-                        }
-                        }
+                        <a href="/import/delete?id=@i.GetIdentifier()" class="btn btn-danger">Xóa</a>
+                    </td>
+                    </tr>
+                }
+                else
+                {
+                <tr class="text-center bg-warning bg-opacity-25">
+                    <th scope="row">
+                        <span class="badge rounded-pill bg-warning text-dark">Đã xóa</span>
+                    </th>
+                    <td>@i.Date</td>
+                    <td>@i.Name</td>
+                    <td>@i.Price ₫</td>
+                    <td>@i.Quantity</td>
+                    <td>@i.Total ₫</td>
+                    <td>
                         <a href="/import/delete?id=@i.GetIdentifier()" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>
+                }
             }
         }
     </tbody>
