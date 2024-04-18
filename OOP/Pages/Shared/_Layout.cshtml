@@ -32,22 +32,30 @@
     </header>
     <div class="container">
         <ul class="nav justify-content-center my-3">
-            <li class="nav-item">
-                <a class="nav-link" id="pr" href="/view?i=pr">Sản Phẩm</a>
+            <li class="nav-item mx-3">
+                <a class="btn btn-sm btn-outline-secondary" id="pr" href="/view?i=pr">Sản Phẩm</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" id="ct" href="/view?i=ct">Phân Loại</a>
+            <li class="nav-item mx-3">
+                <a class="btn btn-sm btn-outline-secondary" id="ct" href="/view?i=ct">Phân Loại</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" id="ip" href="/view?i=ip">Hóa Đơn Nhập Hàng</a>
+            <li class="nav-item mx-3">
+                <a class="btn btn-sm btn-outline-secondary position-relative" id="ip" href="/view?i=ip">
+                    Hóa Đơn Nhập Hàng
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="ivNotify"></span>
+                </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" id="iv" href="/view?i=iv">Hóa Đơn Bán Hàng</a>
+            <li class="nav-item mx-3">
+                <a class="btn btn-sm btn-outline-secondary disabled" id="iv" href="/view?i=iv">Hóa Đơn Bán Hàng</a>
             </li>
         </ul>
         <main role="main" class="pb-3">
             @RenderBody()
             <script type="text/javascript">
+                var notifier = document.getElementById("ivNotify");
+                var warnings = document.getElementById("IpWarning");
+                if (warnings.value != 0) {
+                    notifier.innerHTML = warnings.value;
+                }
                 function ExpToggle() {
                     if (checkbox.checked == true) {
                         exp.readOnly = false;
