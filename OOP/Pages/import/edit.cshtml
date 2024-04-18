@@ -17,7 +17,7 @@
         </div>
         <div class="col-md-2">
             <label for="quantity" class="form-label">Số lượng</label>
-            <input type="number" class="form-control" name="quantity" value="@Model.DefQuantity">
+            <input type="number" class="form-control" name="quantity" id="quantity" value="@Model.DefQuantity" onchange="CalculateTotal()">
             <span class="invalid-feedback"></span>
         </div>
         <div class="col-md-6">
@@ -27,12 +27,12 @@
         </div>
         <div class="col-md-3">
             <label for="price" class="form-label">Giá / đơn vị</label>
-            <input class="form-control" name="price" value="@Model.DefPrice">
+            <input class="form-control" name="price" id="price" value="@Model.DefPrice" onchange="CalculateTotal()">
             <span class="invalid-feedback"></span>
         </div>
         <div class="col-md-3">
             <label for="price" class="form-label">Tổng giá trị</label>
-            <input class="form-control" name="total" value="@Model.DefTotal" readonly>
+            <input class="form-control" name="total" id="total" value="@Model.DefTotal" readonly>
             <span class="invalid-feedback"></span>
         </div>
 
@@ -41,3 +41,12 @@
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    var value = document.getElementById("price");
+    var quantity = document.getElementById("quantity");
+    var total = document.getElementById("total");
+    function CalculateTotal() {
+        total.value = value.value * quantity.value;
+    }    
+</script>

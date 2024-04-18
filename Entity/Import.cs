@@ -10,6 +10,7 @@ namespace Entity
         public int Quantity { get; set; }
         public DateOnly Date {  get; set; }
         public int Total { get; }
+        public bool Alive { get; set; }
         public Import(string id, string name, int price, int quantity)
         {
             this.Id = id;
@@ -18,6 +19,7 @@ namespace Entity
             this.Quantity = quantity;
             this.Date = DateOnly.FromDateTime(DateTime.Now);
             this.Total = Price * Quantity;
+            this.Alive = true;
         }
         public bool FieldsOccupied()
         {

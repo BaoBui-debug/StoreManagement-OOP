@@ -22,12 +22,10 @@ namespace Presentation.Controllers
         {
             return _Operator.GetList();
         }
-        /*
         public int GetIndex(string request)
         {
             return _Filter.GetIndex(request);
         }
-         */
         public void HandleAdd(Import i)
         {
             _Operator.Add(i);
@@ -39,6 +37,17 @@ namespace Presentation.Controllers
         public void HandleUpdate(Import i, int index)
         {
             _Operator.Update(i, index);
+        }
+        public List<Import> GetAccessibleItem(List<Product> pList)
+        {
+            List<Import> iList = FetchData();
+            foreach(Import i in iList)
+            {
+                Product? item = pList.Find(p => p.GetIdentifier() == i.GetIdentifier());
+                i.Alive = item != null;
+                HandleUpdate(i, iList.IndexOf(i));
+            }
+            return iList;
         }
     }
 }

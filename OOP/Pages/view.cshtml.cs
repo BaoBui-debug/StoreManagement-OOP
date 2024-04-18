@@ -35,7 +35,7 @@ namespace Presentation.Pages
             }
             Products = _ProductController.FetchData();
             Categories = _CategoryController.SumUpAll(Products);
-            Imports = _ImportController.FetchData();
+            Imports = _ImportController.GetAccessibleItem(Products);
         }
         public void OnPost()
         {
