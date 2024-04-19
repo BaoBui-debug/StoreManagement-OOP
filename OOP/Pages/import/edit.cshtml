@@ -1,6 +1,8 @@
 ﻿@page
 @model Presentation.Pages.import.EditModel
 
+<input type="hidden" id="IpWarning" value="@Model.Imports.Where(i => !i.Alive).Count()" />
+
 <h1 class="text-danger">@Model.FeedBack</h1>
 <h3 class="text-center">Cập nhật thông tin hóa đơn</h3>
 <div class="d-flex justify-content-center">

@@ -1,6 +1,8 @@
 ﻿@page
 @model Presentation.Pages.product.DeleteModel
 
+<input type="hidden" id="IpWarning" value="@Model.Imports.Where(i => !i.Alive).Count()" />
+
 <div class="text-center">
     <partial name="_Danger" model="@Model.Message"/>
     <h5>Bạn có chắc chắn muốn xóa sản phẩm này?</h5>

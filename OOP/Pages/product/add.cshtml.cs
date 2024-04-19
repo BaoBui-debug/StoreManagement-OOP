@@ -9,10 +9,12 @@ namespace Presentation.Pages.product
 {
     public class AddModel : PageModel
     {
-        private static readonly ProductController _Controller = new();
-        private readonly ProductValidator _Validator = new(_Controller.FilePath);
+        private static readonly ProductController _ProductController = new();
         private readonly ImportController _ImportController = new();
-        public List<Category> categories = [];
+        private readonly CategoryController _CategoryController = new();
+        private readonly ProductValidator _Validator = new(_ProductController.FilePath);
+        public List<Category> Categories = [];
+        public List<Import> Imports = [];
         public string? FeedBack;
         [BindProperty]
         public string Id { get; set; } = "";
@@ -32,8 +34,8 @@ namespace Presentation.Pages.product
         public DateOnly? Exp { get; set; }
         public void OnGet()
         {
-            CategoryController CategoryController = new();
-            categories = CategoryController.FetchData();
+            Categories = _CategoryController.FetchData();
+            Imports = _ImportController.FetchData();
         }
         public void OnPost()
         {
@@ -49,7 +51,7 @@ namespace Presentation.Pages.product
                 ServiceResult EndResult = _Validator.Add(newP);
                 if (EndResult.IsSuccess())
                 {
-                    _Controller.HandleAdd(newP);
+                    _ProductController.HandleAdd(newP);
                     Import newI = new(Id, Name, Price, Quantity);
                     _ImportController.HandleAdd(newI);
                     Response.Redirect("/view?i=pr");

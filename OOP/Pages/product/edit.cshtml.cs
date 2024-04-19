@@ -9,9 +9,12 @@ namespace Presentation.Pages.product
 {
     public class EditModel : PageModel
     {
-        private static readonly ProductController _Controller = new();
-        private readonly ProductValidator _Validator = new(_Controller.FilePath);
-        public List<Category> categories = [];
+        private static readonly ProductController _ProductController = new();
+        private readonly CategoryController _CategoryController = new();
+        private readonly ImportController _ImportController = new();
+        private readonly ProductValidator _Validator = new(_ProductController.FilePath);
+        public List<Category> Categories = [];
+        public List<Import> Imports = [];
         public string? Feedback;
 
         public string DefId = "";
@@ -42,7 +45,7 @@ namespace Presentation.Pages.product
         public void OnGet()
         {
             int index = int.Parse(Request.Query["id"].ToString());
-            Product result = _Controller.FetchData()[index];
+            Product result = _ProductController.FetchData()[index];
             DefId = result.Id;
             DefName = result.Name;
             DefPrice = result.Price;
@@ -52,8 +55,8 @@ namespace Presentation.Pages.product
             DefMfg = result.Mfg;
             DefExp = result.Exp ?? DateOnly.MinValue;
             
-            CategoryController CategoryController = new();
-            categories = CategoryController.FetchData();
+            Categories = _CategoryController.FetchData();
+            Imports = _ImportController.FetchData();
         }
         public void OnPost()
         {
@@ -70,7 +73,7 @@ namespace Presentation.Pages.product
                 ServiceResult EndResult = _Validator.Update(newP, index);
                 if (EndResult.IsSuccess())
                 {
-                    _Controller.HandleUpdate(newP, index);
+                    _ProductController.HandleUpdate(newP, index);
                     Response.Redirect("/view?i=pr");
                 }
             }

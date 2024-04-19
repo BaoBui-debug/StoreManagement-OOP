@@ -1,16 +1,23 @@
-﻿using Presentation.Controllers;
+﻿using Entity;
+using Presentation.Controllers;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Presentation.Pages.product
 {
     public class DeleteModel : PageModel
     {
-        private readonly ProductController _Controller = new();
+        private readonly ProductController _ProductController = new();
+        private readonly ImportController _ImportController = new();
         public string Message = "Dữ liệu về sản phẩm này sẽ bị xóa vĩnh viễn";
+        public List<Import> Imports = [];
+        public void OnGet()
+        {
+            Imports = _ImportController.FetchData();
+        }
         public void OnPost()
         {
             int index = int.Parse(Request.Query["id"].ToString());
-            _Controller.HandleRemove(index);
+            _ProductController.HandleRemove(index);
             Response.Redirect("/view?i=pr");
         }
     }

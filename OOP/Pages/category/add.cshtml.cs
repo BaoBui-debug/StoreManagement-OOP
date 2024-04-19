@@ -7,10 +7,16 @@ namespace Presentation.Pages.category
 {
     public class AddModel : PageModel
     {
-        private static readonly CategoryController _Controller = new();
-        private readonly CategoryValidator _Validator = new(_Controller.FilePath);
+        private static readonly CategoryController _CategoryController = new();
+        private readonly ImportController _ImportController = new();
+        private readonly CategoryValidator _Validator = new(_CategoryController.FilePath);
+        public List<Import> Imports = [];
         public string? FeedBack;
         public string? Status;
+        public void OnGet()
+        {
+            Imports = _ImportController.FetchData();
+        }
         public void OnPost()
         {
             string name = Request.Form["name"].ToString();
@@ -20,7 +26,7 @@ namespace Presentation.Pages.category
                 ServiceResult EndResult =_Validator.Add(newC);
                 if(EndResult.IsSuccess())
                 {
-                    _Controller.HandleAdd(newC);
+                    _CategoryController.HandleAdd(newC);
                     Response.Redirect("/view?i=ct");
                 }
             }

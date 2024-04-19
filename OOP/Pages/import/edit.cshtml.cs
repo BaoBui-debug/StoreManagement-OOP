@@ -6,7 +6,8 @@ namespace Presentation.Pages.import
 {
     public class EditModel : PageModel
     {
-        private readonly ImportController _Controller = new();
+        private readonly ImportController _ImportController = new();
+        public List<Import> Imports = [];
         public string? FeedBack;
         public string DefId = "";
         public string DefName = "";
@@ -17,13 +18,14 @@ namespace Presentation.Pages.import
         public void OnGet()
         {
             int index = int.Parse(Request.Query["id"].ToString());
-            Import I = _Controller.FetchData()[index];
+            Import I = _ImportController.FetchData()[index];
             DefId = I.Id;
             DefName = I.Name;
             DefPrice = I.Price;
             DefQuantity = I.Quantity;
             DefDate = I.Date;
             DefTotal = I.Total;
+            Imports = _ImportController.FetchData();
         }
     }
 }

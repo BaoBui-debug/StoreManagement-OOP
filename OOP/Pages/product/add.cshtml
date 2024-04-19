@@ -2,6 +2,8 @@
 @model Presentation.Pages.product.AddModel
 @using Entity
 
+<input type="hidden" id="IpWarning" value="@Model.Imports.Where(i => !i.Alive).Count()" />
+
 <h1 class="text-danger">@Model.FeedBack</h1>
 <h3 class="text-center">Nhập thông tin sản phẩm</h3>
 <div class="d-flex justify-content-center">
@@ -34,7 +36,7 @@
                 <span class="invalid-feedback"></span>
                 <option selected hidden></option>
                 @{
-                    foreach(Category c in Model.categories)
+                    foreach(Category c in Model.Categories)
                     {
                         <option value="@c.Name">@c.Name</option>           
                     }

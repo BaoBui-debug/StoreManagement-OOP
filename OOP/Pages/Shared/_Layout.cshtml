@@ -29,8 +29,6 @@
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
         <ul class="nav justify-content-center my-3">
             <li class="nav-item mx-3">
                 <a class="btn btn-sm btn-outline-secondary" id="pr" href="/view?i=pr">Sản Phẩm</a>
@@ -41,13 +39,15 @@
             <li class="nav-item mx-3">
                 <a class="btn btn-sm btn-outline-secondary position-relative" id="ip" href="/view?i=ip">
                     Hóa Đơn Nhập Hàng
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="ivNotify"></span>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark" id="ivNotify"></span>
                 </a>
             </li>
             <li class="nav-item mx-3">
                 <a class="btn btn-sm btn-outline-secondary disabled" id="iv" href="/view?i=iv">Hóa Đơn Bán Hàng</a>
             </li>
         </ul>
+    </header>
+    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
             <script type="text/javascript">
