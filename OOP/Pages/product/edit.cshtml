@@ -10,7 +10,7 @@
     <form method="post" class="row g-3 w-50">
         <div class="col-md-3">
             <label for="id" class="form-label">Mã</label>
-            <input class="form-control" name="id" id="defId" value="@Model.DefId" onchange="IsValueModified(this.value)">
+            <input class="form-control" name="id" id="defId" value="@Model.DefId" oninput="IsValueModified(this.value)">
             <span class="invalid-feedback"></span>
         </div>
         <div class="col-md-6">
@@ -61,7 +61,7 @@
             <span class="invalid-feedback"></span>
         </div>
         <a class="col-6 btn btn-secondary" href="/view?i=pr">Hủy</a>
-        <button type="submit" id="submitBtn" class="col-6 btn btn-primary">Cập nhật</button>
+        <button id="submitBtn" class="col-6 btn btn-primary">Cập nhật</button>
         <partial name="~/Views/Modals/_Confirmation.cshtml" model="@Model.Note" />
     </form>
 </div>

@@ -58,7 +58,7 @@ namespace Presentation.Pages.product
             
             Categories = _CategoryController.FetchData();
             Imports = _ImportController.FetchData();
-            Note = $"Thay đổi mã sản phẩm {result.Id} sẽ khiến hóa đơn nhập hàng của sản phẩm này rơi vào trạng thái hết hạn";
+            Note = $"Thao tác này sẽ làm thay đổi trạng thái hóa đơn nhập hàng của sản phẩm này";
         }
         public void OnPost()
         {
