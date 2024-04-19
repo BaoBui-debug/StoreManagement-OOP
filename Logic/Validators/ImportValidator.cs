@@ -1,7 +1,7 @@
 ﻿using DataAccess;
 using Entity;
 
-namespace Logic.Validator
+namespace Logic.Validators
 {
     public class ImportValidator
     {

@@ -1,30 +1,30 @@
 ﻿using DataAccess;
 using Entity;
 
-namespace Logic.Validator
+namespace Logic.Validators
 {
-    public class ProductValidator
+    public class CategoryValidator
     {
         private readonly ServiceResult _Result;
-        private readonly Accessor<Product> _Accessor;
-        public ProductValidator(string filePath)
+        private readonly Accessor<Category> _Accessor;
+        public CategoryValidator(string filePath)
         {
             this._Accessor = new(filePath);
             this._Result = new();
         }
-        public ServiceResult Add(Product newItem)
+        public ServiceResult Add(Category newItem)
         {
             if (!newItem.IsDataComplete())
             {
                 _Result.AddError("Không được phép thêm trường rỗng");
             }
-            if (IdExisted(newItem))
+            if (NameExisted(newItem))
             {
-                _Result.AddError("Mã sản phẩm đã tồn tại trong cơ sở dữ liệu");
+                _Result.AddError("Phân loại này đã tồn tại trong cơ sở dữ liệu");
             }
             return _Result;
         }
-        public ServiceResult Update(Product successor, int index)
+        public ServiceResult Update(Category successor, int index)
         {
             if (!successor.IsDataComplete())
             {
@@ -34,15 +34,19 @@ namespace Logic.Validator
             {
                 _Result.AddError("Thông tin không thay đổi, vui lòng cập nhật thông tin sản phẩm");
             }
+            if (NameExisted(successor))
+            {
+                _Result.AddError("Phân loại này đã tồn tại trong cơ sở dữ liệu");
+            }
             return _Result;
         }
-        private bool IdExisted(Product newItem)
+        private bool NameExisted(Category newItem)
         {
             return _Accessor.Read().Exists(e => e.GetIdentifier() == newItem.GetIdentifier());
         }
-        private bool SuccessorUnchanged(Product successor, int index)
+        private bool SuccessorUnchanged(Category successor, int index)
         {
-            Product precursor = _Accessor.Read()[index];
+            Category precursor = _Accessor.Read()[index];
             return Helper.IsDataUnchanged(precursor, successor);
         }
     }

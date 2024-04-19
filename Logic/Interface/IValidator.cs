@@ -1,5 +1,5 @@
 ﻿using Entity.Interface;
-using Logic.Validator;
+using Logic.Validators;
 using DataAccess;
 
 namespace Logic.Interface

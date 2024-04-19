@@ -1,9 +1,9 @@
 ﻿using Entity;
-using Logic.Validator;
-using Logic;
+using Logic.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Presentation.Controllers;
+using Logic.TypeCheckers;
 
 namespace Presentation.Pages.product
 {

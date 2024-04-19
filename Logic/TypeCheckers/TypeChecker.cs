@@ -1,4 +1,4 @@
-﻿namespace Logic
+﻿namespace Logic.TypeCheckers
 {
     public class TypeChecker
     {

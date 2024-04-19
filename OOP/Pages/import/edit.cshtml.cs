@@ -1,5 +1,5 @@
 ﻿using Entity;
-using Logic.Validator;
+using Logic.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Presentation.Controllers;

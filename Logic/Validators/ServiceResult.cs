@@ -1,4 +1,4 @@
-﻿namespace Logic.Validator
+﻿namespace Logic.Validators
 {
     public class ServiceResult
     {

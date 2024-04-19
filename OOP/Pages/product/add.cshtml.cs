@@ -1,6 +1,6 @@
 ﻿using Entity;
-using Logic.Validator;
-using Logic;
+using Logic.Validators;
+using Logic.TypeCheckers;
 using Presentation.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
