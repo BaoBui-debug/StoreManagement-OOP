@@ -52,6 +52,7 @@ namespace Presentation.Pages.import
                 if(EndResult.IsSuccess())
                 {
                     _ImportController.HandleUpdate(Successor, index);
+                    Response.Redirect("/view?i=ip");
                 }
             }
             catch(Exception ex) 

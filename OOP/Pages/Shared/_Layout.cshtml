@@ -50,26 +50,6 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
-            <script type="text/javascript">
-                var notifier = document.getElementById("ivNotify");
-                var warnings = document.getElementById("IpWarning");
-                if (warnings.value != 0) {
-                    notifier.innerHTML = warnings.value;
-                }
-                function ExpToggle() {
-                    if (checkbox.checked == true) {
-                        exp.readOnly = false;
-                        exp.type = "date";
-                        exp.required = true;
-                    }
-                    else {
-                        exp.readOnly = true;
-                        exp.value = null;
-                        exp.type = "text";
-                        exp.placeholder = "Không có hạng sử dụng";
-                    }
-                }
-            </script>
         </main>
     </div>
 
@@ -78,11 +58,29 @@
             #creator: BaoBui Debug
         </div>
     </footer>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     @await RenderSectionAsync("Scripts", required: false)
+    <script type="text/javascript">
+        var notifier = document.getElementById("ivNotify");
+        var warnings = document.getElementById("IpWarning");
+        if (warnings.value != 0) {
+            notifier.innerHTML = warnings.value;
+        }
+        function ExpToggle() {
+            if (checkbox.checked == true) {
+                exp.readOnly = false;
+                exp.type = "date";
+                exp.required = true;
+            }
+            else {
+                exp.readOnly = true;
+                exp.value = null;
+                exp.type = "text";
+                exp.placeholder = "Không có hạng sử dụng";
+            }
+        }
+    </script>
 </body>
 </html>
