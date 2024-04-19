@@ -3,6 +3,7 @@
 
 <input type="hidden" id="IpWarning" value="@Model.Imports.Where(i => !i.Alive).Count()" />
 
+<partial name="_Warning" model="@Model.Note" />
 <h1 class="text-danger">@Model.FeedBack</h1>
 <h3 class="text-center">Cập nhật thông tin hóa đơn</h3>
 <div class="d-flex justify-content-center">
@@ -37,10 +38,8 @@
             <input class="form-control" name="total" id="total" value="@Model.DefTotal" readonly>
             <span class="invalid-feedback"></span>
         </div>
-
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Thêm</button>
-        </div>
+        <a class="col-6 btn btn-secondary" href="/view?i=ip">Hủy</a>
+        <button class="col-6 btn btn-primary">Cập nhật</button>
     </form>
 </div>
 

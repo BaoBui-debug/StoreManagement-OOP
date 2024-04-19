@@ -39,7 +39,7 @@ namespace Entity
         }
         public List<string> DataToStringList()
         {
-            List<string> data = [Id, Name, Price.ToString(), Quantity.ToString(), Date.ToString(), Total.ToString()];
+            List<string> data = [Id, Name, Price.ToString(), Quantity.ToString(), Date.ToString(), Total.ToString(), Alive.ToString()];
             return data;
         }
         public string GetIdentifier()
