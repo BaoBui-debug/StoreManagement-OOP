@@ -10,7 +10,7 @@
     <form method="post" class="row g-3 w-50">
         <div class="col-md-3">
             <label for="id" class="form-label">Mã</label>
-            <input class="form-control" name="id" value="@Model.DefId">
+            <input class="form-control" name="id" id="defId" value="@Model.DefId" onchange="IsValueModified(this.value)">
             <span class="invalid-feedback"></span>
         </div>
         <div class="col-md-6">
@@ -38,7 +38,7 @@
                 @{
                     foreach(Category c in Model.Categories)
                     {
-                        <option value="@c.Name">@c.Name</option>
+                                    <option value="@c.Name">@c.Name</option>
                     }
                 }
             </select>
@@ -61,9 +61,11 @@
             <span class="invalid-feedback"></span>
         </div>
         <a class="col-6 btn btn-secondary" href="/view?i=pr">Hủy</a>
-        <button class="col-6 btn btn-primary">Cập nhật</button>
+        <button type="submit" id="submitBtn" class="col-6 btn btn-primary">Cập nhật</button>
+        <partial name="~/Views/Modals/_Confirmation.cshtml" model="@Model.Note" />
     </form>
 </div>
+<partial name="~/Views/Modals/_Confirmation.cshtml" model="@Model.Note"/>
 
 <script type="text/javascript">
     var checkbox = document.querySelector("input[id=checkbox]")
@@ -80,5 +82,26 @@
         exp.type = "date";
         exp.required = true;
         checkbox.checked = true;
+    }
+    var defId = document.querySelector("input[id=defId]").value;
+    function IsValueModified(newValue) {
+        if (newValue != defId) {
+            SetupModal();
+        }
+        else {
+            Reset();
+        }
+    }
+    function SetupModal() {
+        var button = document.getElementById("submitBtn");
+        button.setAttribute("type", "button");
+        button.setAttribute("data-bs-toggle", "modal");
+        button.setAttribute("data-bs-target", "#staticBackdrop");
+    }
+    function Reset() {
+        var button = document.getElementById("submitBtn");
+        button.setAttribute("type", "submit");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-target");
     }
 </script>

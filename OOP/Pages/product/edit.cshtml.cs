@@ -16,6 +16,7 @@ namespace Presentation.Pages.product
         public List<Category> Categories = [];
         public List<Import> Imports = [];
         public string? Feedback;
+        public string? Note;
 
         public string DefId = "";
         public string DefName = "";
@@ -57,6 +58,7 @@ namespace Presentation.Pages.product
             
             Categories = _CategoryController.FetchData();
             Imports = _ImportController.FetchData();
+            Note = $"Thay đổi mã sản phẩm {result.Id} sẽ khiến hóa đơn nhập hàng của sản phẩm này rơi vào trạng thái hết hạn";
         }
         public void OnPost()
         {
