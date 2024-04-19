@@ -1,7 +1,7 @@
 using Logic.Validators;
 using Presentation.Controllers;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Entity;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Presentation.Pages.category
 {

@@ -1,4 +1,5 @@
 ﻿using Entity;
+using Logic.TypeCheckers;
 using Logic.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -44,6 +45,12 @@ namespace Presentation.Pages.import
         }
         public void OnPost() 
         {
+            //THE FUCK IS THIS ??!??
+            if(!ImportDataChecker.IsInputInvalid(Price.ToString(), Quantity.ToString(), Date.ToString()))
+            {
+                FeedBack = "Kiểu dữ liệu không đúng";
+                return;
+            }
             try
             {
                 int index = int.Parse(Request.Query["id"].ToString());
