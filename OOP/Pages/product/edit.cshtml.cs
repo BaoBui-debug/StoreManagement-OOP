@@ -63,7 +63,7 @@ namespace Presentation.Pages.product
         public void OnPost()
         {
             int index = int.Parse(Request.Query["id"].ToString());
-            if (!ProductDataChecker.IsInputInvalid(Price.ToString(), Quantity.ToString(), Mfg.ToString(), Exp.ToString()))
+            if (ProductDataChecker.IsInputInvalid(Price.ToString(), Quantity.ToString(), Mfg.ToString(), Exp.ToString()))
             {
                 Feedback = "Kiểu dữ liệu không đúng";
                 return;

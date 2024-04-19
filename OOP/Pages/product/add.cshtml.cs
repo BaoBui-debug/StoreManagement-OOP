@@ -39,7 +39,7 @@ namespace Presentation.Pages.product
         }
         public void OnPost()
         {
-            if (!ProductDataChecker.IsInputInvalid(Price.ToString(), Quantity.ToString(), Mfg.ToString(), Exp.ToString()))
+            if (ProductDataChecker.IsInputInvalid(Price.ToString(), Quantity.ToString(), Mfg.ToString(), Exp.ToString()))
             {
                 FeedBack = "Kiểu dữ liệu không đúng";
                 return;
