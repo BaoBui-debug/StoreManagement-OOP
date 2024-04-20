@@ -1,14 +1,17 @@
-﻿namespace Logic.TypeCheckers
+﻿using Entity;
+
+namespace Logic.TypeCheckers
 {
     public class ImportDataChecker
     {
-        public static bool IsInputInvalid(string price, string quantity, string date)
+        public static Import? InputValidate(string id, string name, string price, string quantity)
         {
-            if(!int.TryParse(price, out _) && !int.TryParse(quantity, out _) && !DateOnly.TryParse(date, out _))
+            if(int.TryParse(price, out int Price) && int.TryParse(quantity, out int Quantity))
             {
-                return true;
+                Import validI = new(id, name, Price, Quantity);
+                return validI;
             }
-            return false;
+            return null;
         }
     }
 }

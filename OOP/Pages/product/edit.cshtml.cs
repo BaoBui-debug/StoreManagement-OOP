@@ -10,11 +10,11 @@ namespace Presentation.Pages.product
     public class EditModel : PageModel
     {
         private static readonly ProductController _ProductController = new();
-        private readonly CategoryController _CategoryController = new();
-        private readonly ImportController _ImportController = new();
-        private readonly ProductValidator _Validator = new(_ProductController.FilePath);
-        public List<Category> Categories = [];
-        public List<Import> Imports = [];
+        private static readonly ImportController _ImportController = new();
+        private static readonly CategoryController _CategoryController = new();
+        private static readonly ProductValidator _Validator = new(_ProductController.FilePath);
+        public List<Category> Categories = _CategoryController.FetchData();
+        public List<Import> Imports = _ImportController.FetchData();
         public string? Feedback;
         public string? Note;
 
@@ -26,23 +26,6 @@ namespace Presentation.Pages.product
         public string DefCompany = "";
         public DateOnly DefMfg;
         public DateOnly DefExp;
-
-        [BindProperty]
-        public string Id { get; set; } = "";
-        [BindProperty]
-        public string Name { get; set; } = "";
-        [BindProperty]
-        public int Price { get; set; }
-        [BindProperty]
-        public int Quantity { get; set; }
-        [BindProperty]
-        public string Category { get; set; } = "";
-        [BindProperty]
-        public string Company { get; set; } = "";
-        [BindProperty]
-        public DateOnly Mfg { get; set; }
-        [BindProperty]
-        public DateOnly? Exp { get; set; }
         public void OnGet()
         {
             int index = int.Parse(Request.Query["id"].ToString());
@@ -55,27 +38,31 @@ namespace Presentation.Pages.product
             DefCompany = result.Company;
             DefMfg = result.Mfg;
             DefExp = result.Exp ?? DateOnly.MinValue;
-            
-            Categories = _CategoryController.FetchData();
-            Imports = _ImportController.FetchData();
             Note = $"Thao tác này sẽ làm thay đổi trạng thái hóa đơn nhập hàng của sản phẩm này";
         }
         public void OnPost()
         {
-            int index = int.Parse(Request.Query["id"].ToString());
-            if (ProductDataChecker.IsInputInvalid(Price.ToString(), Quantity.ToString(), Mfg.ToString(), Exp.ToString()))
+            string id = Request.Form["id"].ToString();
+            string name = Request.Form["name"].ToString();
+            string price = Request.Form["price"].ToString();
+            string category = Request.Form["category"].ToString();
+            string quantity = Request.Form["quantity"].ToString();
+            string company = Request.Form["company"].ToString();
+            string mfg = Request.Form["mfg"].ToString();
+            string exp = Request.Form["exp"].ToString();
+            Product? editP = ProductDataChecker.InputValidate(id, name, price, category, quantity, company, mfg, exp);
+            if (editP == null)
             {
                 Feedback = "Kiểu dữ liệu không đúng";
                 return;
             }
-            Category newC = new(Category, Quantity);
-            Product newP = new(Id, Name, Price, newC, Company, Mfg, Exp);
             try
             {
-                ServiceResult EndResult = _Validator.Update(newP, index);
+                int index = int.Parse(Request.Query["id"].ToString());
+                ServiceResult EndResult = _Validator.Update(editP, index);
                 if (EndResult.IsSuccess())
                 {
-                    _ProductController.HandleUpdate(newP, index);
+                    _ProductController.HandleUpdate(editP, index);
                     Response.Redirect("/view?i=pr");
                 }
             }

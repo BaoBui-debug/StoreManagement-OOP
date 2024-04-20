@@ -1,8 +1,7 @@
 ﻿using Entity;
 using Logic.Validators;
-using Logic.TypeCheckers;
 using Presentation.Controllers;
-using Microsoft.AspNetCore.Mvc;
+using Logic.TypeCheckers;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Presentation.Pages.product
@@ -10,49 +9,35 @@ namespace Presentation.Pages.product
     public class AddModel : PageModel
     {
         private static readonly ProductController _ProductController = new();
-        private readonly ImportController _ImportController = new();
-        private readonly CategoryController _CategoryController = new();
-        private readonly ProductValidator _Validator = new(_ProductController.FilePath);
-        public List<Category> Categories = [];
-        public List<Import> Imports = [];
+        private static readonly ImportController _ImportController = new();
+        private static readonly CategoryController _CategoryController = new();
+        private static readonly ProductValidator _Validator = new(_ProductController.FilePath);
+        public List<Category> Categories = _CategoryController.FetchData();
+        public List<Import> Imports = _ImportController.FetchData();
         public string? FeedBack;
-        [BindProperty]
-        public string Id { get; set; } = "";
-        [BindProperty]
-        public string Name { get; set; } = "";
-        [BindProperty]
-        public int Price { get; set; }
-        [BindProperty]
-        public int Quantity { get; set; }
-        [BindProperty]
-        public string Category { get; set; } = "";
-        [BindProperty]
-        public string Company { get; set; } = "";
-        [BindProperty]
-        public DateOnly Mfg { get; set; }
-        [BindProperty]
-        public DateOnly? Exp { get; set; }
-        public void OnGet()
-        {
-            Categories = _CategoryController.FetchData();
-            Imports = _ImportController.FetchData();
-        }
         public void OnPost()
         {
-            if (ProductDataChecker.IsInputInvalid(Price.ToString(), Quantity.ToString(), Mfg.ToString(), Exp.ToString()))
+            string id = Request.Form["id"].ToString();
+            string name = Request.Form["name"].ToString();
+            string price = Request.Form["price"].ToString();
+            string category = Request.Form["category"].ToString();
+            string quantity = Request.Form["quantity"].ToString();
+            string company = Request.Form["company"].ToString();
+            string mfg = Request.Form["mfg"].ToString();
+            string exp = Request.Form["exp"].ToString();
+            Product? newP = ProductDataChecker.InputValidate(id, name, price, category, quantity, company, mfg, exp);
+            if(newP == null) 
             {
-                FeedBack = "Kiểu dữ liệu không đúng";
+                FeedBack = "Kiểu dữ liệu chưa đúng";
                 return;
             }
             try
             {
-                Category newC = new(Category, Quantity);
-                Product newP = new(Id, Name, Price, newC, Company, Mfg, Exp);
                 ServiceResult EndResult = _Validator.Add(newP);
                 if (EndResult.IsSuccess())
                 {
                     _ProductController.HandleAdd(newP);
-                    Import newI = new(Id, Name, Price, Quantity);
+                    Import newI = new(id, name, newP.Price, newP.Category.Quantity);
                     _ImportController.HandleAdd(newI);
                     Response.Redirect("/view?i=pr");
                 }

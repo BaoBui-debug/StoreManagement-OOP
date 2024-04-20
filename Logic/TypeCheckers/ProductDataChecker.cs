@@ -1,14 +1,19 @@
-﻿namespace Logic.TypeCheckers
+﻿using Entity;
+
+namespace Logic.TypeCheckers
 {
     public class ProductDataChecker
     {
-        public static bool IsInputInvalid(string price, string quantity, string mfg, string? exp)
+        public static Product? InputValidate(string id, string name, string price, string category, string quantity, string company, string mfg, string exp)
         {
-            if(!int.TryParse(price, out _) && !int.TryParse(quantity, out _) && !DateOnly.TryParse(mfg, out _) && !DateOnly.TryParse(exp, out _))
+            if(int.TryParse(price, out int Price) && int.TryParse(quantity, out int Quantity) && DateOnly.TryParse(mfg, out DateOnly Mfg)) 
             {
-                return true;
+                DateOnly? Exp = DateOnly.TryParse(exp, out DateOnly e) ? e : null;
+                Category newC = new(category, Quantity);
+                Product newP = new(id, name, Price, newC, company, Mfg, Exp);
+                return newP;
             }
-            return false;
+            return null;
         }
     }
 }
