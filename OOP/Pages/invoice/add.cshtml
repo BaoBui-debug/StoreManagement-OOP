@@ -36,11 +36,11 @@
                     @{
                         foreach (Product p in Model.Products)
                         {
-                                    <option value="@p.Name">@p.Name</option>
+                                        <option value="@p.Name">@p.Name</option>
                         }
                     }
                 </select>
-                <button class="btn btn-outline-secondary" type="button" onclick="CheckItemExistence()">Thêm</button>
+                <button class="btn btn-outline-success" type="button" onclick="CheckItemExistence()">Thêm</button>
             </div>
         </div>
         <div class="col-12">
@@ -65,32 +65,57 @@
     function CheckItemExistence() {
         var selected = CreateNew();
         var selectedName = selected.split("x")[0].trim();
-        var selectedQuantity = Number.parseInt(selected.split("x")[1]);
         var index = selecteditems.findIndex(i => i.split("x")[0].trim() == selectedName);
         if (index == -1) {
             Add(selected);
         }
         else {
-            Update(index, selectedQuantity);  
+            Update(index, selected);  
         }
         RenderOut();
+    }
+    function Add(item) {
+        selecteditems.push(item);
+    }
+    function Update(index, successor) {
+        var prQuantity = Number.parseInt(selecteditems[index].split("x")[1]);
+        var scQuantity = Number.parseInt(successor.split("x")[1]);
+        var sum = prQuantity + scQuantity;
+        var replacement = `${selecteditems[index].split("x")[0]} x ${sum}`;
+        selecteditems[index] = replacement;
+    }
+    function Delete() {
+        console.log("Deleted item");
+    }
+    function Edit() {
+        console.log("Item edited");
     }
     function RenderOut() {
         let itemviews = [];
         for (let i = 0; i < selecteditems.length; i++) {
-            var li = `<li>${selecteditems[i]}</li>`;
+            var li = GenerateItemHTML(selecteditems[i]);
             itemviews.push(li);
         }
         var selectedItem = document.getElementById("slctd");
         selectedItem.innerHTML = itemviews.join(" ");
     }
-    function Add(item) {
-        selecteditems.push(item);
-    }
-    function Update(index, quantity) {
-        var pr = selecteditems[index].split("x");
-        var sum = Number.parseInt(pr[1]) + quantity;
-        var replacement = `${pr[0]} x ${sum}`;
-        selecteditems[index] = replacement;
+    function GenerateItemHTML(data) {
+        return `
+        <li class="d-flex justify-content-between my-3">
+            ${data}
+            <div class="gap-3">
+                <button type="button" class="btn btn-outline-primary" onclick="Edit()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>
+                    </svg>
+                </button>
+                <button type="button" class="btn btn-outline-danger" onclick="Delete()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                    </svg>
+                </button>
+            </div>
+        </li>
+        `;
     }
 </script>
