@@ -8,8 +8,8 @@ namespace Logic.TypeCheckers
         {
             if(int.TryParse(price, out int Price) && int.TryParse(quantity, out int Quantity))
             {
-                Import validI = new(id, name, Price, Quantity);
-                return validI;
+                Import validIp = new(id, name, Price, Quantity);
+                return validIp;
             }
             return null;
         }

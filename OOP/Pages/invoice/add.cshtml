@@ -1,0 +1,96 @@
+﻿@page
+@model Presentation.Pages.invoice.AddModel
+@using Entity;
+
+<input type="hidden" id="IpWarning" value="@Model.Imports.Where(i => !i.Alive).Count()" />
+
+<h1 class="text-danger">@Model.FeedBack</h1>
+<h3 class="text-center">Nhập thông tin hóa đơn</h3>
+<div class="d-flex justify-content-center">
+    <form method="post" class="row g-3 w-50">
+        <div class="col-md-3">
+            <label for="id" class="form-label">Mã</label>
+            <input class="form-control" name="id">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-5">
+            <label for="name" class="form-label">Tên khách hàng</label>
+            <input type="text" class="form-control" name="name">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-4">
+            <label for="mfg" class="form-label">Ngày thêm hóa đơn</label>
+            <input type="date" class="form-control" name="date"/>
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Số lượng</label>
+            <input type="number" class="form-control" id="qtt" value="1">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-10">
+            <label class="form-label">Sản phẩm</label>
+            <div class="input-group">
+                <select class="form-select" id="slct">
+                    <option selected hidden></option>
+                    @{
+                        foreach (Product p in Model.Products)
+                        {
+                                    <option value="@p.Name">@p.Name</option>
+                        }
+                    }
+                </select>
+                <button class="btn btn-outline-secondary" type="button" onclick="CheckItemExistence()">Thêm</button>
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="order" class="form-label">Các sản phẩm đã chọn</label>
+            <ul id="slctd">
+                <!-- selected items will be rendered here -->
+            </ul>
+            <input type="hidden" name="order" value="" readonly/>
+        </div>
+        <a class="col-6 btn btn-secondary" href="/view?i=iv">Hủy</a>
+        <button type="submit" class="col-6 btn btn-primary">Tạo</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    let selecteditems = [];
+    function CreateNew() {
+        var select = document.getElementById("slct");
+        var quantity = document.getElementById("qtt");
+        return `${select.value} x ${quantity.value}`; 
+    }
+    function CheckItemExistence() {
+        var selected = CreateNew();
+        var selectedName = selected.split("x")[0].trim();
+        var selectedQuantity = Number.parseInt(selected.split("x")[1]);
+        var index = selecteditems.findIndex(i => i.split("x")[0].trim() == selectedName);
+        if (index == -1) {
+            Add(selected);
+        }
+        else {
+            Update(index, selectedQuantity);  
+        }
+        RenderOut();
+    }
+    function RenderOut() {
+        let itemviews = [];
+        for (let i = 0; i < selecteditems.length; i++) {
+            var li = `<li>${selecteditems[i]}</li>`;
+            itemviews.push(li);
+        }
+        var selectedItem = document.getElementById("slctd");
+        selectedItem.innerHTML = itemviews.join(" ");
+    }
+    function Add(item) {
+        selecteditems.push(item);
+    }
+    function Update(index, quantity) {
+        var pr = selecteditems[index].split("x");
+        var sum = Number.parseInt(pr[1]) + quantity;
+        var replacement = `${pr[0]} x ${sum}`;
+        selecteditems[index] = replacement;
+    }
+</script>
