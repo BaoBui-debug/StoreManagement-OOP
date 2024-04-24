@@ -6,16 +6,16 @@ namespace Entity
     {
         public string Id { get; set; }
         public string CustomerName { get; set; }
-        public List<Import> Order { get; set; }
+        public List<Product> Order { get; set; }
         public DateOnly Date {  get; set; }
         public int Total { get;}
-        public Invoice(string id, string customerName, List<Import> order)
+        public Invoice(string id, string customerName, List<Product> order)
         {
             this.Id = id;
             this.CustomerName = customerName;
             this.Order = order;
             this.Date = DateOnly.FromDateTime(DateTime.Now);
-            this.Total = order.Sum(i => i.Total);
+            this.Total = order.Sum(p => p.Category.Quantity * p.Price);
         }
         public bool FieldsOccupied()
         {
@@ -28,10 +28,6 @@ namespace Entity
                 throw new Exception($"Ngày thêm không được sau {DateOnly.FromDateTime(DateTime.Now)}");
             }
             return true;
-        }
-        public static List<Import> StringToOrder(string str)
-        {
-            return Import.StringToInvoiceList(str);
         }
         public bool IsDataComplete()
         {
@@ -49,9 +45,9 @@ namespace Entity
         private string OrderToString()
         {
             List<string> orders = [];
-            foreach(Import i in Order)
+            foreach(Product p in Order)
             {
-                List<string> data = i.DataToStringList();
+                List<string> data = p.DataToStringList();
                 orders.Add(string.Join(",", data));
             }
             return string.Join(",", orders);

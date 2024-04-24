@@ -37,21 +37,6 @@ namespace Entity
         {
             return FieldsOccupied() && DateValid();
         }
-        public static List<Import> StringToInvoiceList(string str)
-        {
-            string[] strI = str.Split(',');
-            List<Import> result = [];
-            foreach (string s in strI)
-            {
-                string[] ivs = s.Split(",");
-                for (int i = 0; i < ivs.Length; i++)
-                {
-                    Import converted = new(ivs[0], ivs[1], int.Parse(ivs[2]), int.Parse(ivs[3]));
-                    result.Add(converted);
-                }
-            }
-            return result;
-        }
         public List<string> DataToStringList()
         {
             List<string> data = [Id, Name, Price.ToString(), Quantity.ToString(), Date.ToString(), Total.ToString(), Alive.ToString()];

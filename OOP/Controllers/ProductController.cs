@@ -38,6 +38,22 @@ namespace Presentation.Controllers
         {
             _Operator.Update(p, index);
         }
+        public List<Product> GenerateOrder(string[] request)
+        {
+            List<Product> source = FetchData();
+            List<Product> result = [];
+            foreach (string item in request)
+            {
+                int index = source.FindIndex(p => p.Name == item.Split("x")[0].Trim());
+                if (index != -1)
+                {
+                    Product pReturn = source[index];
+                    pReturn.Category.Quantity = int.Parse(item.Split("x")[1]);
+                    result.Add(pReturn);
+                }
+            }
+            return result;
+        }
         public void OnCategoryModify(Category precursor, Category successor)
         {
             List<Product> prList = FetchData();
@@ -59,6 +75,16 @@ namespace Presentation.Controllers
                 {
                     HandleRemove(prList.IndexOf(pr));
                 }
+            }
+        }
+        public void DecreaseQuantity(List<Product> list)
+        {
+            foreach (Product p in list)
+            {
+                int index = FetchData().FindIndex(u => u.GetIdentifier() == p.GetIdentifier());
+                Product pEx = FetchData()[index];
+                pEx.Category.Quantity -= p.Category.Quantity;
+                HandleUpdate(pEx, index);
             }
         }
     }
