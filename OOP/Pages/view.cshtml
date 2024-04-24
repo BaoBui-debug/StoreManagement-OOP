@@ -140,6 +140,9 @@
                     case "ip":
                         <partial name="~/Views/Models/_Import.cshtml" model="@Model.Imports"/>
                     break;
+                    case "iv":
+                        <partial name="~/Views/Models/_Invoice.cshtml" model="@Model.Invoices"/>
+                    break;
                     default:
                         <h4 class="text-danger">Yêu cầu không hợp lệ</h4>
                     break;

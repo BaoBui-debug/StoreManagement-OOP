@@ -6,12 +6,14 @@ namespace Presentation.Pages
 {
     public class ViewModel : PageModel
     {
-        private readonly ProductController _ProductController = new();
-        private readonly CategoryController _CategoryController = new();
-        private readonly ImportController _ImportController = new();
-        public List<Product> Products = [];
-        public List<Category> Categories = [];
-        public List<Import> Imports = [];
+        private static readonly ProductController _ProductController = new();
+        private static readonly CategoryController _CategoryController = new();
+        private static readonly ImportController _ImportController = new();
+        private static readonly InvoiceController _InvoiceController = new();
+        public List<Product> Products = _ProductController.FetchData();
+        public List<Category> Categories = _CategoryController.FetchData();
+        public List<Import> Imports = _ImportController.FetchData();
+        public List<Invoice> Invoices = _InvoiceController.FetchData();
         public string? id;
         public string? Navigate;
         public string? FeedBack;
@@ -33,9 +35,6 @@ namespace Presentation.Pages
                     Navigate = "invoices";
                     break;
             }
-            Products = _ProductController.FetchData();
-            Categories = _CategoryController.SumUpAll(Products);
-            Imports = _ImportController.GetAccessibleItem(Products);
         }
         public void OnPost()
         {

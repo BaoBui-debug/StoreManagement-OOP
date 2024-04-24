@@ -1,0 +1,32 @@
+﻿@using Entity;
+@model List<Invoice>
+
+<table class="table">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">Mã</th>
+            <th scope="col">Ngày thêm hóa đơn</th>
+            <th scope="col">Tên khách hàng</th>
+            <th scope="col">Giá trị đơn</th>
+            <th scope="col">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (Invoice i in Model)
+            {
+                <tr class="text-center">
+                    <th scope="row">@i.Id</th>
+                    <td><i>@i.Date</i></td>
+                    <td><i>@i.CustomerName</i></td>
+                    <td>@i.Total ₫</td>
+                    <td>
+                        <a href="/InvoiceDetail?id=@i.Id" class="btn btn-secondary">Chi tiết</a>
+                        <a href="/EditInvoice?id=@i.Id" class="btn btn-primary">Sửa</a>
+                        <a href="/DeleteInvoice?id=@i.Id" class="btn btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
