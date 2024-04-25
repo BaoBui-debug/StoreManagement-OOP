@@ -42,15 +42,15 @@ namespace Entity
         {
             return Id;
         }
-        private string OrderToString()
+        public string OrderToString()
         {
             List<string> orders = [];
             foreach(Product p in Order)
             {
                 List<string> data = p.DataToStringList();
-                orders.Add(string.Join(",", data));
+                orders.Add(string.Join("#", data));
             }
-            return string.Join(",", orders);
+            return string.Join("+#+", orders);
         }
     }
 }

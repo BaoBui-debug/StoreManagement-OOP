@@ -13,17 +13,17 @@
     </thead>
     <tbody>
         @{
-            foreach (Invoice i in Model)
+            for(int i = 0; i < Model.Count; i++)
             {
                 <tr class="text-center">
-                    <th scope="row">@i.Id</th>
-                    <td><i>@i.Date</i></td>
-                    <td><i>@i.CustomerName</i></td>
-                    <td>@i.Total ₫</td>
+                    <th scope="row">@Model[i].Id</th>
+                    <td><i>@Model[i].Date</i></td>
+                    <td><i>@Model[i].CustomerName</i></td>
+                    <td>@Model[i].Total ₫</td>
                     <td>
-                        <a href="/InvoiceDetail?id=@i.Id" class="btn btn-secondary">Chi tiết</a>
-                        <a href="/EditInvoice?id=@i.Id" class="btn btn-primary">Sửa</a>
-                        <a href="/DeleteInvoice?id=@i.Id" class="btn btn-danger">Xóa</a>
+                        <a href="/invoice/detail?id=@i" class="btn btn-secondary">Chi tiết</a>
+                        <a href="/invoice/edit?id=@i" class="btn btn-primary">Sửa</a>
+                        <a href="/invoice/delete?id=@i" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>
             }

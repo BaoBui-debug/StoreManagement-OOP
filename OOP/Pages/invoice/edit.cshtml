@@ -1,0 +1,170 @@
+﻿@page
+@model Presentation.Pages.invoice.EditModel
+@using Entity
+
+<input type="hidden" id="IpWarning" value="@Model.Imports.Where(i => !i.Alive).Count()" />
+
+<h1 class="text-danger" id="fb">@Model.FeedBack</h1>
+<h3 class="text-center">Cập nhật thông tin hóa đơn</h3>
+<div class="d-flex justify-content-center">
+    <form method="post" class="row g-3 w-50">
+        <div class="col-md-3">
+            <label for="id" class="form-label">Mã</label>
+            <input class="form-control" name="id" value="@Model.DefId">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-5">
+            <label for="name" class="form-label">Tên khách hàng</label>
+            <input type="text" class="form-control" name="name" value="@Model.DefCustomerName">
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-4">
+            <label for="mfg" class="form-label">Ngày thêm hóa đơn</label>
+            <input type="date" class="form-control" name="date" value="@Model.DefDate.ToString("yyyy-MM-dd")" />
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Số lượng</label>
+            <input type="number" class="form-control" id="qtt" value="1">
+            <span class="invalid-feedback" id="qtt-fb"></span>
+        </div>
+        <div class="col-md-10">
+            <label class="form-label">Sản phẩm</label>
+            <div class="input-group">
+                <select class="form-control" id="slct">
+                    <option selected hidden></option>
+                    @{
+                        foreach (Product p in Model.Products)
+                        {
+                                                    <option data-max="@p.Category.Quantity" value="@p.Name">@p.Name</option>
+                        }
+                    }
+                    <span class="invalid-feedback"></span>
+                </select>
+                <button class="btn btn-outline-success" type="button" onclick="CheckItemExistence()">Thêm</button>
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="order" class="form-label">Các sản phẩm đã chọn</label>
+            <ul id="slctd">
+                <!-- selected items will be rendered here -->
+            </ul>
+            <input type="hidden" name="order" id="scrt-str-order" value="@Model.DefOrder"/>
+        </div>
+        <a class="col-6 btn btn-secondary" href="/view?i=iv">Hủy</a>
+        <button type="submit" class="col-6 btn btn-primary">Cập nhật</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    let selecteditems = [];
+    FetchData();
+    RenderOut();
+    function CreateNew() {
+        var select = document.getElementById("slct");
+        var quantity = document.getElementById("qtt");
+        var max = select.options[select.selectedIndex].getAttribute("data-max");
+        var item = `${select.value} x ${quantity.value}`;
+        if (item.length == 4) {
+            ThrowError("slct", "fb", "Vui lòng chọn ít nhất một sản phẩm");
+            return;
+        }
+        else {
+            ResetFeedBack("slct", "fb");
+        }
+        if (Number.parseInt(quantity.value) > Number.parseInt(max)) {
+            ThrowError("qtt", "qtt-fb", `Mặt hàng này chỉ còn tối đa ${max} sản phẩm`);
+            return;
+        }
+        else {
+            ResetFeedBack("qtt", "qtt-fb");
+        }
+        return item;
+    }
+    function CheckItemExistence() {
+        var selected = CreateNew();
+        var selectedName = selected.split("x")[0].trim();
+        var index = selecteditems.findIndex(i => i.split("x")[0].trim() == selectedName);
+        if (index == -1) {
+            Add(selected);
+        }
+        else {
+            Update(index, selected);
+        }
+        RenderOut();
+    }
+    function Add(item) {
+        selecteditems.push(item);
+    }
+    function Update(index, successor) {
+        var prQuantity = Number.parseInt(selecteditems[index].split("x")[1]);
+        var scQuantity = Number.parseInt(successor.split("x")[1]);
+        var sum = prQuantity + scQuantity;
+        var select = document.getElementById("slct");
+        var max = select.options[select.selectedIndex].getAttribute("data-max");
+        if (sum > Number.parseInt(max)) {
+            ThrowError("qtt", "qtt-fb", `Mặt hàng này chỉ còn tối đa ${max} sản phẩm`);
+            return;
+        }
+        else {
+            ResetFeedBack("qtt", "qtt-fb");
+            var replacement = `${selecteditems[index].split("x")[0]} x ${sum}`;
+            selecteditems[index] = replacement;
+        }
+    }
+    function Delete(index) {
+        var target = selecteditems[index];
+        var newList = [];
+        for (let i = 0; i < selecteditems.length; i++) {
+            if (selecteditems[i] != target) {
+                newList.push(selecteditems[i]);
+            }
+        }
+        selecteditems = newList;
+        RenderOut();
+    }
+    function RenderOut() {
+        let itemviews = [];
+        for (let i = 0; i < selecteditems.length; i++) {
+            var li = GenerateItemHTML(selecteditems[i], i);
+            itemviews.push(li);
+        }
+        var selectedItem = document.getElementById("slctd");
+        selectedItem.innerHTML = itemviews.join(" ");
+        BindData();
+    }
+    function GenerateItemHTML(data, index) {
+        return `
+            <li class="d-flex justify-content-between my-3" id="it-${index}">
+                <span class="p-2">
+                    ${data}
+                </span>
+                <button type="button" class="btn btn-outline-danger" onclick="Delete(${index})">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                    </svg>
+                </button>
+            </li>
+            `;
+    }
+    function ThrowError(id, fb, message) {
+        document.getElementById(id).classList.add("is-invalid");
+        document.getElementById(fb).innerHTML = message;
+    }
+    function ResetFeedBack(id, fb) {
+        document.getElementById(id).classList.remove("is-invalid");
+        document.getElementById(fb).innerHTML = "";
+    }
+    function BindData() {
+        var input = document.getElementById("scrt-str-order");
+        input.value = selecteditems.join("+#+");
+    }
+    function FetchData() {
+        var input = document.getElementById("scrt-str-order");
+        var data = input.value.split("+#+");
+        for(let i = 0; i < data.length; i++) {
+            var dataComponent = data[i].split("#");
+            Add(`${dataComponent[1]} x ${dataComponent[4]}`);
+        }
+    }
+</script>

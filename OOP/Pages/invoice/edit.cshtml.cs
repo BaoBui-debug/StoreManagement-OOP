@@ -1,12 +1,12 @@
 ﻿using Entity;
-using Logic.TypeCheckers;
 using Logic.Validators;
 using Presentation.Controllers;
+using Logic.TypeCheckers;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Presentation.Pages.invoice
 {
-    public class AddModel : PageModel
+    public class EditModel : PageModel
     {
         private static readonly InvoiceController _InvoiceController = new();
         private static readonly ProductController _ProductController = new();
@@ -15,8 +15,19 @@ namespace Presentation.Pages.invoice
         public List<Product> Products = _ProductController.FetchData();
         public List<Import> Imports = _ImportController.FetchData();
         public string? FeedBack;
+
+        public string DefId = "";
+        public string DefCustomerName = "";
+        public string DefOrder = "";
+        public DateOnly DefDate; 
         public void OnGet()
         {
+            int index = int.Parse(Request.Query["id"].ToString());
+            Invoice I = _InvoiceController.FetchData()[index];
+            DefId = I.Id;
+            DefCustomerName = I.CustomerName;
+            DefOrder = I.OrderToString();
+            DefDate = I.Date;
         }
         public void OnPost() 
         {
@@ -25,26 +36,28 @@ namespace Presentation.Pages.invoice
             string date = Request.Form["date"].ToString();
             string selectedList = Request.Form["order"].ToString();
             List<Product> order = _ProductController.GenerateOrder(selectedList.Split("+#+"));
-            Invoice? newIv = InvoiceDataChecker.InputValidate(id, customerName, order, date);
-            if(newIv == null)
+            Invoice? editIv = InvoiceDataChecker.InputValidate(id, customerName, order, date);
+            if(editIv == null ) 
             {
                 FeedBack = "Kiểu dữ liệu chưa đúng";
                 return;
             }
             try
             {
-                ServiceResult EndResult = _Validator.Add(newIv);
+                int index = int.Parse(Request.Query["id"].ToString());
+                ServiceResult EndResult = _Validator.Update(editIv, index);
                 if(EndResult.IsSuccess())
                 {
-                    _InvoiceController.HandleAdd(newIv);
-                    _ProductController.DecreaseQuantity(order);
+                    _InvoiceController.HandleUpdate(editIv, index);
+                    //tăng hoặc giảm số lượng sản phẩm trong product tùy theo giá trị mới của order
+                    //FUCK khó quá :)))
                     Response.Redirect("/view?i=iv");
                 }
             }
-            catch(Exception ex) 
+            catch( Exception ex ) 
             {
                 FeedBack = ex.Message;
             }
-        }    
+        }
     }
 }
