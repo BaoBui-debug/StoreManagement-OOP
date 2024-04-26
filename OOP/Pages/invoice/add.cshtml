@@ -36,7 +36,7 @@
                     @{
                         foreach (Product p in Model.Products)
                         {
-                                                <option data-max="@p.Category.Quantity" value="@p.Name">@p.Name</option>
+                                                        <option data-max="@p.Category.Quantity" value="@p.Name">@p.Name</option>
                         }
                     }
                     <span class="invalid-feedback"></span>
@@ -81,8 +81,8 @@
     }
     function CheckItemExistence() {
         var selected = CreateNew();
-        var selectedName = selected.split("x")[0].trim();
-        var index = selecteditems.findIndex(i => i.split("x")[0].trim() == selectedName);
+        var selectedName = selected.split(" x ")[0];
+        var index = selecteditems.findIndex(i => i.split(" x ")[0] == selectedName);
         if (index == -1) {
             Add(selected);
         }
@@ -95,8 +95,8 @@
         selecteditems.push(item);
     }
     function Update(index, successor) {
-        var prQuantity = Number.parseInt(selecteditems[index].split("x")[1]);
-        var scQuantity = Number.parseInt(successor.split("x")[1]);
+        var prQuantity = Number.parseInt(selecteditems[index].split(" x ")[1]);
+        var scQuantity = Number.parseInt(successor.split(" x ")[1]);
         var sum = prQuantity + scQuantity;
         var select = document.getElementById("slct");
         var max = select.options[select.selectedIndex].getAttribute("data-max");
@@ -106,7 +106,7 @@
         }
         else {
             ResetFeedBack("qtt", "qtt-fb");
-            var replacement = `${selecteditems[index].split("x")[0]} x ${sum}`;
+            var replacement = `${selecteditems[index].split(" x ")[0]} x ${sum}`;
             selecteditems[index] = replacement;
         }
     }
@@ -154,7 +154,13 @@
         document.getElementById(fb).innerHTML = "";
     }
     function BindData() {
+        var stringify = [];
         var input = document.getElementById("scrt-str-order");
-        input.value = selecteditems.join("+#+");
+        for (let i = 0; i < selecteditems.length; i++) {
+            var e = selecteditems[i].split(" x ");
+            var str = `${e[0]}/~/${e[1]}`;
+            stringify.push(str);
+        }
+        input.value = stringify.join("+#+");
     }
 </script>

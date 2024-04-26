@@ -44,11 +44,11 @@ namespace Presentation.Controllers
             List<Product> result = [];
             foreach (string item in request)
             {
-                int index = source.FindIndex(p => p.Name == item.Split("x")[0].Trim());
+                int index = source.FindIndex(p => p.Name == item.Split("/~/")[0]);
                 if (index != -1)
                 {
                     Product pReturn = source[index];
-                    pReturn.Category.Quantity = int.Parse(item.Split("x")[1]);
+                    pReturn.Category.Quantity = int.Parse(item.Split("/~/")[1]);
                     result.Add(pReturn);
                 }
             }

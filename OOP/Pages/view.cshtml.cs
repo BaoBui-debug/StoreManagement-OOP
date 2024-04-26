@@ -32,7 +32,7 @@ namespace Presentation.Pages
                     Navigate = "imports";
                     break;
                 case "iv":
-                    Navigate = "invoices";
+                    Navigate = "invoice";
                     break;
             }
         }
