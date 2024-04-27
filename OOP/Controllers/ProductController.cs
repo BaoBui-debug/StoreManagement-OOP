@@ -26,15 +26,15 @@ namespace Presentation.Controllers
         {
             return _Filter.GetIndex(request);
         }
-        public void HandleAdd(Product p) 
+        public void HandleAdd(Product p)
         {
             _Operator.Add(p);
         }
-        public void HandleRemove(int index) 
+        public void HandleRemove(int index)
         {
             _Operator.Delete(index);
         }
-        public void HandleUpdate(Product p, int index) 
+        public void HandleUpdate(Product p, int index)
         {
             _Operator.Update(p, index);
         }
@@ -57,9 +57,9 @@ namespace Presentation.Controllers
         public void OnCategoryModify(Category precursor, Category successor)
         {
             List<Product> prList = FetchData();
-            foreach(Product pr in prList)
+            foreach (Product pr in prList)
             {
-                if(pr.Category.Name == precursor.Name)
+                if (pr.Category.Name == precursor.Name)
                 {
                     pr.Category.Name = successor.Name;
                     HandleUpdate(pr, prList.IndexOf(pr));
@@ -69,9 +69,9 @@ namespace Presentation.Controllers
         public void OnCategoryDelete(Category c)
         {
             List<Product> prList = FetchData();
-            foreach(Product pr in prList)
+            foreach (Product pr in prList)
             {
-                if(pr.Category.Name == c.Name)
+                if (pr.Category.Name == c.Name)
                 {
                     HandleRemove(prList.IndexOf(pr));
                 }
@@ -86,6 +86,47 @@ namespace Presentation.Controllers
                 pEx.Category.Quantity -= p.Category.Quantity;
                 HandleUpdate(pEx, index);
             }
+        }
+        public void IncreaseQuantity(List<Product> list)
+        {
+            foreach (Product p in list)
+            {
+                int index = FetchData().FindIndex(u => u.GetIdentifier() == p.GetIdentifier());
+                Product pEx = FetchData()[index];
+                pEx.Category.Quantity += p.Category.Quantity;
+                HandleUpdate(pEx, index);
+            }
+        }
+        public void OnInvoiceModify(List<Product> precursor, List<Product> successor)
+        {
+            List<Product> toDecrease = [];
+            List<Product> toIncrease = [];
+            foreach(Product p in successor)
+            {
+                Product? item = precursor.Find(i => i.GetIdentifier() == p.GetIdentifier());
+                if(item != null)
+                {
+                    int oldQuantity = item.Category.Quantity;
+                    int newQuantity = p.Category.Quantity;
+
+                    if(oldQuantity < newQuantity)
+                    {
+                        item.Category.Quantity = newQuantity - oldQuantity; 
+                        toDecrease.Add(item);
+                    }
+                    if(oldQuantity > newQuantity)
+                    {
+                        item.Category.Quantity = oldQuantity - newQuantity;
+                        toIncrease.Add(item);
+                    }
+                }
+                else
+                {
+                    toDecrease.Add(p);
+                }
+            }
+            DecreaseQuantity(toDecrease);
+            IncreaseQuantity(toIncrease);
         }
     }
 }
