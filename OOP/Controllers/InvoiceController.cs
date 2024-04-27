@@ -38,5 +38,18 @@ namespace Presentation.Controllers
         {
             _Operator.Update(i, index);
         }
+        public List<Product> GetMaxThreshold(List<Product> fromStorage, List<Product> fromOrder)
+        {
+            List<Product> threshold = fromStorage;
+            foreach (Product p in threshold)
+            {
+                Product? selected = fromOrder.Find(e => e.GetIdentifier() == p.GetIdentifier());
+                if (selected != null)
+                {
+                    p.Category.Quantity += selected.Category.Quantity;
+                }
+            }
+            return threshold;
+        }
     }
 }

@@ -77,30 +77,22 @@ namespace Presentation.Controllers
                 }
             }
         }
-        public void DecreaseQuantity(List<Product> list)
+        public void DecreaseQuantity(Product item)
         {
-            foreach (Product p in list)
-            {
-                int index = FetchData().FindIndex(u => u.GetIdentifier() == p.GetIdentifier());
-                Product pEx = FetchData()[index];
-                pEx.Category.Quantity -= p.Category.Quantity;
-                HandleUpdate(pEx, index);
-            }
+            int index = FetchData().FindIndex(u => u.GetIdentifier() == item.GetIdentifier());
+            Product pEx = FetchData()[index];
+            pEx.Category.Quantity -= item.Category.Quantity;
+            HandleUpdate(pEx, index);
         }
-        public void IncreaseQuantity(List<Product> list)
+        public void IncreaseQuantity(Product item)
         {
-            foreach (Product p in list)
-            {
-                int index = FetchData().FindIndex(u => u.GetIdentifier() == p.GetIdentifier());
-                Product pEx = FetchData()[index];
-                pEx.Category.Quantity += p.Category.Quantity;
-                HandleUpdate(pEx, index);
-            }
+            int index = FetchData().FindIndex(u => u.GetIdentifier() == item.GetIdentifier());
+            Product pEx = FetchData()[index];
+            pEx.Category.Quantity += item.Category.Quantity;
+            HandleUpdate(pEx, index);
         }
         public void OnInvoiceModify(List<Product> precursor, List<Product> successor)
         {
-            List<Product> toDecrease = [];
-            List<Product> toIncrease = [];
             foreach(Product p in successor)
             {
                 Product? item = precursor.Find(i => i.GetIdentifier() == p.GetIdentifier());
@@ -112,21 +104,20 @@ namespace Presentation.Controllers
                     if(oldQuantity < newQuantity)
                     {
                         item.Category.Quantity = newQuantity - oldQuantity; 
-                        toDecrease.Add(item);
+                        DecreaseQuantity(item);
                     }
                     if(oldQuantity > newQuantity)
                     {
                         item.Category.Quantity = oldQuantity - newQuantity;
-                        toIncrease.Add(item);
+                        IncreaseQuantity(item);
                     }
                 }
+                //nếu sản phẩm đã bị xóa --> trả số lượng của sản phẩm đó về kho
                 else
                 {
-                    toDecrease.Add(p);
+                    DecreaseQuantity(p);
                 }
             }
-            DecreaseQuantity(toDecrease);
-            IncreaseQuantity(toIncrease);
         }
     }
 }

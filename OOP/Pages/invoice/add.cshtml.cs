@@ -37,7 +37,9 @@ namespace Presentation.Pages.invoice
                 if(EndResult.IsSuccess())
                 {
                     _InvoiceController.HandleAdd(newIv);
-                    _ProductController.DecreaseQuantity(order);
+                    foreach(Product p in order) {
+                        _ProductController.DecreaseQuantity(p);
+                    }
                     Response.Redirect("/view?i=iv");
                 }
             }

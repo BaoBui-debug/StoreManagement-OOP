@@ -24,22 +24,11 @@ namespace Presentation.Pages.invoice
         {
             int index = int.Parse(Request.Query["id"].ToString());
             Invoice I = _InvoiceController.FetchData()[index];
+            Products = _InvoiceController.GetMaxThreshold(Products, I.Order);
             DefId = I.Id;
             DefCustomerName = I.CustomerName;
             DefOrder = I.OrderToString();
             DefDate = I.Date;
-
-            
-            //Prototype
-            foreach (Product p in Products)
-            {
-                Product? fromOrder = I.Order.Find(e => e.GetIdentifier() == p.GetIdentifier());
-                if(fromOrder != null)
-                {
-                    p.Category.Quantity += fromOrder.Category.Quantity;
-                }
-            }
-            //
         }
         public void OnPost()
         {
