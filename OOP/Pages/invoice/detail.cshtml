@@ -1,0 +1,95 @@
+﻿@page
+@model Presentation.Pages.invoice.DetailModel
+@using Entity;
+
+<section class="py-3 py-md-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-9 col-xl-8 col-xxl-7">
+                <div class="row gy-3 mb-3">
+                    <div class="col-6">
+                        <h2 class="text-uppercase text-endx m-0">Hóa đơn</h2>
+                    </div>
+                    <div class="col-6">
+                        <a class="d-block text-end" href="#!">
+                            <img src="https://www.names.co.uk/blog/wp-content/uploads/2018/05/dotSTORE.png" class="img-fluid" alt="BootstrapBrain Logo" width="235" height="54">
+                        </a>
+                    </div>
+                    <div class="col-12">
+                        <address>
+                            <strong>.Store</strong><br>
+                            875 N Coast Hwybr<br>
+                            Laguna Beach, California, 92651<br>
+                            United States<br>
+                            Phone: (949) 494-7695<br>
+                            Email: example@gmail.com
+                        </address>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 col-sm-6 col-md-8">
+                        <h4 class="text-uppercase text-endx m-0">khách hàng</h4>
+                        <address>
+                            <strong>@Model.CustomerName </strong><br> 
+                            7657 NW Prairie View Rd<br>
+                            Kansas City, Mississippi, 64151<br>
+                            United States<br>
+                            Phone: (816) 741-5790<br>
+                            Email: email@client.com
+                        </address>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <h4 class="row">
+                            <span class="col-6">Invoice #</span>
+                            <span class="col-6 text-sm-end">INT-001</span>
+                        </h4>
+                        <div class="row">
+                            <span class="col-6">Account</span>
+                            <span class="col-6 text-sm-end">786-54984</span>
+                            <span class="col-6">Order ID</span>
+                            <span class="col-6 text-sm-end">@Model.Id </span>
+                            <span class="col-6">Invoice Date</span>
+                            <span class="col-6 text-sm-end">@Model.Date </span>
+                            <span class="col-6">Due Date</span>
+                            <span class="col-6 text-sm-end">18/12/2025</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-uppercase">Số lượng</th>
+                                        <th scope="col" class="text-uppercase">Sản phẩm</th>
+                                        <th scope="col" class="text-uppercase text-end">Giá đơn vị</th>
+                                        <th scope="col" class="text-uppercase text-end">Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    @{
+                                        foreach(Product p in Model.Order) 
+                                        {
+                                            int indiTotal = p.Price * p.Category.Quantity; 
+                                            <tr>
+                                                <th scope="row">@p.Category.Quantity</th>
+                                                <td>@p.Name</td>
+                                                <td class="text-end">@p.Price ₫</td>
+                                                <td class="text-end">@indiTotal ₫</td>
+                                            </tr>
+                                        }
+                                    }
+                                    <tr>
+                                        <th scope="row" colspan="3" class="text-uppercase text-end">Tổng</th>
+                                        <td class="text-end">@Model.Total ₫</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,7 +1,6 @@
 ﻿using Entity;
 using Logic;
 using Logic.ItemSeekers;
-using System.Diagnostics;
 
 namespace Presentation.Controllers
 {
