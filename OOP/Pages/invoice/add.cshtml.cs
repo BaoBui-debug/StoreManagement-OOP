@@ -15,9 +15,6 @@ namespace Presentation.Pages.invoice
         public List<Product> Products = _ProductController.FetchData();
         public List<Import> Imports = _ImportController.FetchData();
         public string? FeedBack;
-        public void OnGet()
-        {
-        }
         public void OnPost() 
         {
             string id = Request.Form["id"].ToString();
@@ -37,9 +34,11 @@ namespace Presentation.Pages.invoice
                 if(EndResult.IsSuccess())
                 {
                     _InvoiceController.HandleAdd(newIv);
+                    
                     foreach(Product p in order) {
                         _ProductController.DecreaseQuantity(p);
                     }
+                     
                     Response.Redirect("/view?i=iv");
                 }
             }

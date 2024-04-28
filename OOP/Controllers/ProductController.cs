@@ -1,6 +1,7 @@
 ﻿using Entity;
 using Logic;
 using Logic.ItemSeekers;
+using System.Diagnostics;
 
 namespace Presentation.Controllers
 {
@@ -40,16 +41,14 @@ namespace Presentation.Controllers
         }
         public List<Product> GenerateOrder(string[] request)
         {
-            List<Product> source = FetchData();
             List<Product> result = [];
             foreach (string item in request)
             {
-                int index = source.FindIndex(p => p.Name == item.Split("/~/")[0]);
-                if (index != -1)
+                Product? order = FetchData().Find(p => p.Name == item.Split("/~/")[0]);
+                if (order != null)
                 {
-                    Product pReturn = source[index];
-                    pReturn.Category.Quantity = int.Parse(item.Split("/~/")[1]);
-                    result.Add(pReturn);
+                    order.Category.Quantity = int.Parse(item.Split("/~/")[1]);
+                    result.Add(order);
                 }
             }
             return result;
@@ -93,29 +92,34 @@ namespace Presentation.Controllers
         }
         public void OnInvoiceModify(List<Product> precursor, List<Product> successor)
         {
-            foreach(Product p in successor)
+            foreach(Product oldItem in precursor) 
             {
-                Product? item = precursor.Find(i => i.GetIdentifier() == p.GetIdentifier());
-                if(item != null)
+                Product? matched = successor.Find(newItem => newItem.GetIdentifier() == oldItem.GetIdentifier());
+                if(matched != null)
                 {
-                    int oldQuantity = item.Category.Quantity;
-                    int newQuantity = p.Category.Quantity;
-
+                    int oldQuantity = oldItem.Category.Quantity;
+                    int newQuantity = matched.Category.Quantity;
                     if(oldQuantity < newQuantity)
                     {
-                        item.Category.Quantity = newQuantity - oldQuantity; 
-                        DecreaseQuantity(item);
+                        oldItem.Category.Quantity = newQuantity - oldQuantity;
+                        DecreaseQuantity(oldItem);
                     }
-                    if(oldQuantity > newQuantity)
+                    else 
                     {
-                        item.Category.Quantity = oldQuantity - newQuantity;
-                        IncreaseQuantity(item);
+                        oldItem.Category.Quantity = oldQuantity - newQuantity;
+                        IncreaseQuantity(oldItem);
                     }
                 }
-                //nếu sản phẩm đã bị xóa --> trả số lượng của sản phẩm đó về kho
                 else
                 {
-                    DecreaseQuantity(p);
+                    IncreaseQuantity(oldItem);
+                }
+            }
+            foreach(Product newItem in successor)
+            {
+                if(precursor.Exists(oldItem => oldItem.GetIdentifier() == newItem.GetIdentifier()) == false)
+                {
+                    DecreaseQuantity(newItem);
                 }
             }
         }
