@@ -54,6 +54,14 @@ namespace Presentation.Pages
                     Categories = _CategoryController.HandleSearch(request);
                     FeedBack = Categories.Count > 0 ? $"Tìm thấy {Categories.Count} kết quả" : "Không tìm thấy kết quả nào";
                     break;
+                case "ip":
+                    Imports = _ImportController.HandleSearch(request);
+                    FeedBack = Imports.Count > 0 ? $"Tìm thấy {Imports.Count} kết quả" : "Không tìm thấy kết quả nào";
+                    break;
+                case "iv":
+                    Invoices = _InvoiceController.HandleSearch(request);
+                    FeedBack = Invoices.Count > 0 ? $"Tìm thấy {Invoices.Count} kết quả" : "Không tìm thấy kết quả nào";
+                    break;
             }
         }
     }
