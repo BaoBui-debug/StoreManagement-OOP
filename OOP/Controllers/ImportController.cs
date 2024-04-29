@@ -44,11 +44,8 @@ namespace Presentation.Controllers
             foreach(Import i in iList)
             {
                 Product? item = pList.Find(p => p.GetIdentifier() == i.GetIdentifier());
-                //if(i.Alive)
-                //{
-                    i.Alive = item != null;
-                    HandleUpdate(i, iList.IndexOf(i));
-                //}
+                i.Alive = item != null;
+                HandleUpdate(i, iList.IndexOf(i));
             }
             return iList;
         }

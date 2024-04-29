@@ -11,6 +11,7 @@ namespace Entity
         public string Company { get; set; }
         public DateOnly Mfg { get; set; }
         public DateOnly? Exp { get; set; }
+        public bool Dated { get; set; }
         public Product(string id, string name, int price, Category category, string company, DateOnly mfg, DateOnly? exp)
         {
             Id = id;
@@ -20,6 +21,10 @@ namespace Entity
             Company = company;
             Mfg = mfg;
             Exp = exp;
+        }
+        public bool IsDated()
+        {
+            return Exp <= DateOnly.FromDateTime(DateTime.Now);
         }
         public bool FieldsOccupied()
         {

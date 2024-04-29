@@ -7,7 +7,7 @@
             <th scope="col">Mã</th>
             <th scope="col">Tên sản phẩm</th>
             <th scope="col">Ngày sản xuất</th>
-            <th scope="col">Ngày hết hạng</th>
+            <th scope="col">Ngày hết hạn</th>
             <th scope="col">Tên công ty</th>
             <th scope="col">Giá</th>
             <th scope="col">Phân loại</th>
@@ -19,33 +19,56 @@
         @{
             for (int i = 0;i < Model.Count; i++)
             {
-                <tr class="text-center">
-                    <th scope="row">@Model[i].Id</th>
-                    <td>
-                        <i>@Model[i].Name</i>
-                    </td>
-                    <td><i>@Model[i].Mfg</i></td>
-                    <td>
-                        @{
-                            if (Model[i].Exp == null)
-                            {
-                                <i><strong>Không có</strong></i>
+                if(@Model[i].Dated)
+                {
+                    <tr class="text-center">
+                        <th scope="row">
+                            <span class="badge rounded-pill bg-warning text-dark">đã hết hạn</span>
+                        </th>
+                        <td>
+                            <i>@Model[i].Name</i>
+                        </td>
+                        <td><i>@Model[i].Mfg</i></td>
+                        <td><i class="border-bottom border-danger">@Model[i].Exp</i></td>
+                        <td><strong><i>@Model[i].Company</i></strong></td>
+                        <td><i>@Model[i].Price ₫</i></td>
+                        <td><strong><i>@Model[i].Category.Name</i></strong></td>
+                        <td><strong>@Model[i].Category.Quantity</strong></td>
+                        <td>
+                            <a href="/product/delete?id=@i" class="btn btn-danger">Xóa</a>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="text-center">
+                        <th scope="row">@Model[i].Id</th>
+                        <td>
+                            <i>@Model[i].Name</i>
+                        </td>
+                        <td><i>@Model[i].Mfg</i></td>
+                        <td>
+                            @{
+                                if (Model[i].Exp == null)
+                                {
+                                    <i><strong>Không có</strong></i>
+                                }
+                                else
+                                {
+                                    <i>@Model[i].Exp</i>
+                                }
                             }
-                            else
-                            {
-                                <i>@Model[i].Exp.ToString()</i>
-                            }
-                        }
-                    </td>
-                    <td><strong><i>@Model[i].Company</i></strong></td>
-                    <td><i>@Model[i].Price ₫</i></td>
-                    <td><strong><i>@Model[i].Category.Name</i></strong></td>
-                    <td><strong>@Model[i].Category.Quantity</strong></td>
-                    <td>
-                        <a href="/product/edit?id=@i" class="btn btn-primary">Sửa</a>
-                        <a href="/product/delete?id=@i" class="btn btn-danger">Xóa</a>
-                    </td>
-                </tr>
+                        </td>
+                        <td><strong><i>@Model[i].Company</i></strong></td>
+                        <td><i>@Model[i].Price ₫</i></td>
+                        <td><strong><i>@Model[i].Category.Name</i></strong></td>
+                        <td><strong>@Model[i].Category.Quantity</strong></td>
+                        <td>
+                            <a href="/product/edit?id=@i" class="btn btn-primary">Sửa</a>
+                            <a href="/product/delete?id=@i" class="btn btn-danger">Xóa</a>
+                        </td>
+                    </tr>
+                }
             }
         }
     </tbody>

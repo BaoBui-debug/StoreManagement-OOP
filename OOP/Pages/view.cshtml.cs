@@ -11,9 +11,9 @@ namespace Presentation.Pages
         private static readonly ImportController _ImportController = new();
         private static readonly InvoiceController _InvoiceController = new();
         public List<Product> Products = _ProductController.FetchData();
-        public List<Category> Categories = _CategoryController.FetchData();
-        public List<Import> Imports = _ImportController.FetchData();
-        public List<Invoice> Invoices = _InvoiceController.FetchData();
+        public List<Category> Categories = [];
+        public List<Import> Imports = [];
+        public List<Invoice> Invoices = [];
         public string? id;
         public string? Navigate;
         public string? FeedBack;
@@ -24,6 +24,7 @@ namespace Presentation.Pages
             {
                 case "pr":
                     Navigate = "product";
+                    Products = _ProductController.CheckItemLifeSpan();
                     break;
                 case "ct":
                     Navigate = "category";
@@ -35,6 +36,7 @@ namespace Presentation.Pages
                     break;
                 case "iv":
                     Navigate = "invoice";
+                    Invoices = _InvoiceController.FetchData();
                     break;
             }
         }

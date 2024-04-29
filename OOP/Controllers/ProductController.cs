@@ -38,6 +38,16 @@ namespace Presentation.Controllers
         {
             _Operator.Update(p, index);
         }
+        public List<Product> CheckItemLifeSpan()
+        {
+            List<Product> source = FetchData();
+            foreach(Product p in source) 
+            {
+                p.Dated = p.IsDated();
+                HandleUpdate(p, source.IndexOf(p));
+            }
+            return source;
+        }
         public List<Product> GenerateOrder(string[] request)
         {
             List<Product> result = [];

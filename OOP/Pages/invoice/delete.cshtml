@@ -4,8 +4,8 @@
 <input type="hidden" id="IpWarning" value="@Model.Imports.Where(i => !i.Alive).Count()" />
 
 <div class="text-center">
-    <partial name="_Danger" model="@Model.Message" />
-    <h5>Bạn có chắc chắn muốn hủy hóa đơn này?</h5>
+    <partial name="_Warning" model="@Model.Message" />
+    <h5>Bạn có chắc chắn muốn xóa hóa đơn này?</h5>
     <div class="d-flex justify-content-center">
         <a href="/view?i=iv" class="btn btn-primary m-2">Hủy</a>
         <form method="post">
