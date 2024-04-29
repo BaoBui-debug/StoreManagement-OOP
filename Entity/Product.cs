@@ -21,6 +21,7 @@ namespace Entity
             Company = company;
             Mfg = mfg;
             Exp = exp;
+            Dated = false;
         }
         public bool IsDated()
         {

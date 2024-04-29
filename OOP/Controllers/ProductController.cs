@@ -43,8 +43,11 @@ namespace Presentation.Controllers
             List<Product> source = FetchData();
             foreach(Product p in source) 
             {
-                p.Dated = p.IsDated();
-                HandleUpdate(p, source.IndexOf(p));
+                if(p.Exp != null) 
+                { 
+                    p.Dated = p.IsDated();
+                    HandleUpdate(p, source.IndexOf(p));
+                }
             }
             return source;
         }
