@@ -27,9 +27,11 @@ namespace Presentation.Pages
                     break;
                 case "ct":
                     Navigate = "category";
+                    Categories = _CategoryController.SumUpAll(Products);
                     break;
                 case "ip":
                     Navigate = "imports";
+                    Imports = _ImportController.GetAccessibleItem(Products);
                     break;
                 case "iv":
                     Navigate = "invoice";

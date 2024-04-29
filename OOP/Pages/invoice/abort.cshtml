@@ -1,0 +1,15 @@
+﻿@page
+@model Presentation.Pages.invoice.AbortModel
+
+<input type="hidden" id="IpWarning" value="@Model.Imports.Where(i => !i.Alive).Count()" />
+
+<div class="text-center">
+    <partial name="_Inform" model="@Model.Note" />
+    <h5>Bạn có chắc chắn muốn hủy hóa đơn này?</h5>
+    <div class="d-flex justify-content-center">
+        <a href="/view?i=iv" class="btn btn-secondary m-2">Quay lại</a>
+        <form method="post">
+            <button class="btn btn-outline-dark m-2">Xác nhận</button>
+        </form>
+    </div>
+</div>
