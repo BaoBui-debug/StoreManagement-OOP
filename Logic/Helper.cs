@@ -20,5 +20,11 @@ namespace Logic
             }
             return equals == destination;
         }
+        public static IEnumerable<int> GetRangeFromString(string option) 
+        {
+            int from = int.Parse(option.Split("-")[0]);
+            int count = int.Parse(option.Split("-")[1]);
+            return Enumerable.Range(from, count);
+        }
     }
 }

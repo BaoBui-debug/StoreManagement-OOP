@@ -18,6 +18,10 @@ namespace Presentation.Controllers
         {
             return _Filter.FilterList(request);
         }
+        public List<Product> HandleFilter(IEnumerable<int> mfgRange, IEnumerable<int> expRange, IEnumerable<int> priceRange)
+        {
+            return _Filter.Filter(mfgRange, expRange, priceRange);
+        }
         public List<Product> FetchData()
         {
             return _Operator.GetList();

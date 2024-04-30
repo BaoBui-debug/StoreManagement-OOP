@@ -19,5 +19,17 @@ namespace Logic.ItemSeekers
         {
             return _Operator.GetList().FindIndex(e => e.GetIdentifier() == id);
         }
+        public List<Product> Filter(IEnumerable<int> mfgRange, IEnumerable<int>? expRange, IEnumerable<int> priceRange)
+        {
+            List<Product> source = _Operator.GetList();
+            if(expRange == null)
+            {
+                return source.FindAll(p => mfgRange.Contains(p.Mfg.Month) && p.Exp == null && priceRange.Contains(p.Price));
+            }
+            return source.FindAll(p => mfgRange.Contains(p.Mfg.Month) && p.Exp.HasValue && expRange.Contains(p.Exp.Value.Month) && priceRange.Contains(p.Price));
+        }
     }
 }
+
+
+

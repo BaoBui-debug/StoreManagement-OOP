@@ -1,6 +1,7 @@
 ﻿using Entity;
 using Presentation.Controllers;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Logic;
 
 namespace Presentation.Pages
 {
@@ -42,26 +43,56 @@ namespace Presentation.Pages
         }
         public void OnPost()
         {
-            string request = Request.Form["search"].ToString();
-            id = Request.Query["i"].ToString();
-            switch (id) 
+            if (Request.Form.ContainsKey("search"))
             {
-                case "pr":
-                    Products = _ProductController.HandleSearch(request);
-                    FeedBack = Products.Count > 0 ? $"Tìm thấy {Products.Count} kết quả" : "Không tìm thấy kết quả nào";
-                    break;
-                case "ct":
-                    Categories = _CategoryController.HandleSearch(request);
-                    FeedBack = Categories.Count > 0 ? $"Tìm thấy {Categories.Count} kết quả" : "Không tìm thấy kết quả nào";
-                    break;
-                case "ip":
-                    Imports = _ImportController.HandleSearch(request);
-                    FeedBack = Imports.Count > 0 ? $"Tìm thấy {Imports.Count} kết quả" : "Không tìm thấy kết quả nào";
-                    break;
-                case "iv":
-                    Invoices = _InvoiceController.HandleSearch(request);
-                    FeedBack = Invoices.Count > 0 ? $"Tìm thấy {Invoices.Count} kết quả" : "Không tìm thấy kết quả nào";
-                    break;
+                id = Request.Query["i"].ToString();
+                string request = Request.Form["search"].ToString();
+                switch (id)
+                {
+                    case "pr":
+                        Products = _ProductController.HandleSearch(request);
+                        FeedBack = Products.Count > 0 ? $"Tìm thấy {Products.Count} kết quả" : "Không tìm thấy kết quả nào";
+                        break;
+                    case "ct":
+                        Categories = _CategoryController.HandleSearch(request);
+                        FeedBack = Categories.Count > 0 ? $"Tìm thấy {Categories.Count} kết quả" : "Không tìm thấy kết quả nào";
+                        break;
+                    case "ip":
+                        Imports = _ImportController.HandleSearch(request);
+                        FeedBack = Imports.Count > 0 ? $"Tìm thấy {Imports.Count} kết quả" : "Không tìm thấy kết quả nào";
+                        break;
+                    case "iv":
+                        Invoices = _InvoiceController.HandleSearch(request);
+                        FeedBack = Invoices.Count > 0 ? $"Tìm thấy {Invoices.Count} kết quả" : "Không tìm thấy kết quả nào";
+                        break;
+                }
+            }
+            else
+            {
+                id = Request.Query["i"].ToString();
+                string mfgOption = Request.Form["mfg"].ToString();
+                string expOption = Request.Form["exp"].ToString();
+                string priceOption = Request.Form["price"].ToString();
+                string companyName = Request.Form["company"].ToString();
+                string categoryName = Request.Form["category"].ToString();
+  
+                IEnumerable<int> mfgRange = Helper.GetRangeFromString(mfgOption);
+                IEnumerable<int> expRange = Helper.GetRangeFromString(expOption);
+                IEnumerable<int> priceRange = Helper.GetRangeFromString(priceOption);
+                switch(id) 
+                {
+                    case "pr":
+                        Products = _ProductController.HandleFilter(mfgRange, expRange, priceRange);
+                        break;
+                    case "ct":
+
+                        break;
+                    case "ip":
+
+                        break;
+                    case "iv":
+                        break;
+                }
             }
         }
     }
