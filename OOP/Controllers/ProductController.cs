@@ -16,11 +16,11 @@ namespace Presentation.Controllers
         }
         public List<Product> HandleSearch(string request)
         {
-            return _Filter.FilterList(request);
+            return _Filter.LookFor(request);
         }
-        public List<Product> HandleFilter(IEnumerable<int> mfgRange, IEnumerable<int> expRange, IEnumerable<int> priceRange)
+        public List<Product> HandleFilter(int fromMonth, int toMonth, IEnumerable<int> priceRange, string companyName, string categoryName)
         {
-            return _Filter.Filter(mfgRange, expRange, priceRange);
+            return _Filter.Filter(fromMonth, toMonth, priceRange, companyName, categoryName);
         }
         public List<Product> FetchData()
         {

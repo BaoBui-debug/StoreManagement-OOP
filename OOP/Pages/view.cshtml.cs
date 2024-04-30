@@ -12,7 +12,7 @@ namespace Presentation.Pages
         private static readonly ImportController _ImportController = new();
         private static readonly InvoiceController _InvoiceController = new();
         public List<Product> Products = _ProductController.FetchData();
-        public List<Category> Categories = [];
+        public List<Category> Categories = _CategoryController.FetchData();
         public List<Import> Imports = [];
         public List<Invoice> Invoices = [];
         public string? id;
@@ -43,6 +43,26 @@ namespace Presentation.Pages
         }
         public void OnPost()
         {
+            id = Request.Query["i"].ToString();
+            switch (id)
+            {
+                case "pr":
+                    Navigate = "product";
+                    Products = _ProductController.CheckItemLifeSpan();
+                    break;
+                case "ct":
+                    Navigate = "category";
+                    Categories = _CategoryController.SumUpAll(Products);
+                    break;
+                case "ip":
+                    Navigate = "imports";
+                    Imports = _ImportController.GetAccessibleItem(Products);
+                    break;
+                case "iv":
+                    Navigate = "invoice";
+                    Invoices = _InvoiceController.FetchData();
+                    break;
+            }
             if (Request.Form.ContainsKey("search"))
             {
                 id = Request.Query["i"].ToString();
@@ -75,14 +95,12 @@ namespace Presentation.Pages
                 string priceOption = Request.Form["price"].ToString();
                 string companyName = Request.Form["company"].ToString();
                 string categoryName = Request.Form["category"].ToString();
-  
-                IEnumerable<int> mfgRange = Helper.GetRangeFromString(mfgOption);
-                IEnumerable<int> expRange = Helper.GetRangeFromString(expOption);
                 IEnumerable<int> priceRange = Helper.GetRangeFromString(priceOption);
                 switch(id) 
                 {
                     case "pr":
-                        Products = _ProductController.HandleFilter(mfgRange, expRange, priceRange);
+                        Products = _ProductController.HandleFilter(int.Parse(mfgOption), int.Parse(expOption), priceRange, companyName, categoryName);
+                        FeedBack = Products.Count > 0 ? $"Tìm thấy {Products.Count} kết quả" : "Không tìm thấy kết quả nào";
                         break;
                     case "ct":
 

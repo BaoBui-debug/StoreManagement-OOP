@@ -9,7 +9,7 @@ namespace Logic.ItemSeekers
         {
             this._Operator = newOperator;
         }
-        public List<Product> FilterList(string request)
+        public List<Product> LookFor(string request)
         {
             List<Product> resultA = _Operator.GetList().FindAll(e => e.GetIdentifier() == request);
             List<Product> resultB = _Operator.GetList().FindAll(e => e.Name.ToLower().Contains(request.ToLower()));
@@ -19,14 +19,26 @@ namespace Logic.ItemSeekers
         {
             return _Operator.GetList().FindIndex(e => e.GetIdentifier() == id);
         }
-        public List<Product> Filter(IEnumerable<int> mfgRange, IEnumerable<int>? expRange, IEnumerable<int> priceRange)
+        public List<Product> Filter(int fromMonth, int toMonth, IEnumerable<int> priceRange, string companyName, string categoryName)
         {
             List<Product> source = _Operator.GetList();
-            if(expRange == null)
+            if(toMonth == 0)
             {
-                return source.FindAll(p => mfgRange.Contains(p.Mfg.Month) && p.Exp == null && priceRange.Contains(p.Price));
+                source = source.FindAll(p => p.Mfg.Month >= fromMonth && p.Exp == null && priceRange.Contains(p.Price));
             }
-            return source.FindAll(p => mfgRange.Contains(p.Mfg.Month) && p.Exp.HasValue && expRange.Contains(p.Exp.Value.Month) && priceRange.Contains(p.Price));
+            if(fromMonth != 1)
+            {
+                source = source.FindAll(p => p.Mfg.Month >= fromMonth && p.Exp.HasValue && p.Exp.Value.Month <= toMonth && priceRange.Contains(p.Price));
+            }
+            if(companyName != "")
+            {
+                source = source.FindAll(p => p.Company == companyName);
+            }
+            if(categoryName != "all")
+            {
+                source = source.FindAll(p => p.Category.Name == categoryName);
+            }
+            return source;
         }
     }
 }
