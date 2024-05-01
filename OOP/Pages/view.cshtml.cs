@@ -1,7 +1,8 @@
 ﻿using Entity;
 using Presentation.Controllers;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Logic;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Diagnostics;
 
 namespace Presentation.Pages
 {
@@ -43,6 +44,7 @@ namespace Presentation.Pages
         }
         public void OnPost()
         {
+            /*
             id = Request.Query["i"].ToString();
             switch (id)
             {
@@ -63,6 +65,7 @@ namespace Presentation.Pages
                     Invoices = _InvoiceController.FetchData();
                     break;
             }
+             */
             if (Request.Form.ContainsKey("search"))
             {
                 id = Request.Query["i"].ToString();
@@ -103,7 +106,7 @@ namespace Presentation.Pages
                         FeedBack = Products.Count > 0 ? $"Tìm thấy {Products.Count} kết quả" : "Không tìm thấy kết quả nào";
                         break;
                     case "ct":
-
+                  
                         break;
                     case "ip":
 

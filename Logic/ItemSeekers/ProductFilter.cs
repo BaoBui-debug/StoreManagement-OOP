@@ -22,13 +22,13 @@ namespace Logic.ItemSeekers
         public List<Product> Filter(int fromMonth, int toMonth, IEnumerable<int> priceRange, string companyName, string categoryName)
         {
             List<Product> source = _Operator.GetList();
+            if(fromMonth != 1 && toMonth != 0)
+            {
+                source = source.FindAll(p => p.Mfg.Month >= fromMonth && p.Exp.HasValue && p.Exp.Value.Month <= toMonth);
+            }
             if(toMonth == 0)
             {
-                source = source.FindAll(p => p.Mfg.Month >= fromMonth && p.Exp == null && priceRange.Contains(p.Price));
-            }
-            if(fromMonth != 1)
-            {
-                source = source.FindAll(p => p.Mfg.Month >= fromMonth && p.Exp.HasValue && p.Exp.Value.Month <= toMonth && priceRange.Contains(p.Price));
+                source = source.FindAll(p => p.Exp == null);
             }
             if(companyName != "")
             {
@@ -38,7 +38,7 @@ namespace Logic.ItemSeekers
             {
                 source = source.FindAll(p => p.Category.Name == categoryName);
             }
-            return source;
+            return source.FindAll(p => priceRange.Contains(p.Price));
         }
     }
 }
