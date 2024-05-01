@@ -44,7 +44,6 @@ namespace Presentation.Pages
         }
         public void OnPost()
         {
-            /*
             id = Request.Query["i"].ToString();
             switch (id)
             {
@@ -65,7 +64,6 @@ namespace Presentation.Pages
                     Invoices = _InvoiceController.FetchData();
                     break;
             }
-             */
             if (Request.Form.ContainsKey("search"))
             {
                 id = Request.Query["i"].ToString();
