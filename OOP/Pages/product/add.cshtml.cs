@@ -25,7 +25,7 @@ namespace Presentation.Pages.product
             string company = Request.Form["company"].ToString();
             string mfg = Request.Form["mfg"].ToString();
             string exp = Request.Form["exp"].ToString();
-            Product? newP = ProductDataChecker.InputValidate(id, name, price, category, quantity, company, mfg, exp);
+            Product? newP = DataChecker.ProductInputs(id, name, price, category, quantity, company, mfg, exp);
             if(newP == null) 
             {
                 FeedBack = "Kiểu dữ liệu chưa đúng";

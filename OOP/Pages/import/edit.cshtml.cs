@@ -39,7 +39,7 @@ namespace Presentation.Pages.import
             string Price = Request.Form["price"].ToString();
             string Quantity = Request.Form["quantity"].ToString();
             string Date = Request.Form["date"].ToString();
-            Import? Successor = ImportDataChecker.InputValidate(Id, Name, Price, Quantity);
+            Import? Successor = DataChecker.ImportInputs(Id, Name, Price, Quantity);
             if(Successor == null)
             {
                 FeedBack = "Kiểu dữ liệu chưa đúng";

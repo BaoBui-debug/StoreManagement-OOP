@@ -22,7 +22,7 @@ namespace Presentation.Pages.invoice
             string date = Request.Form["date"].ToString();
             string selectedList = Request.Form["order"].ToString();
             List<Product> order = _ProductController.GenerateOrder(selectedList.Split("+#+"));
-            Invoice? newIv = InvoiceDataChecker.InputValidate(id, customerName, order, date);
+            Invoice? newIv = DataChecker.InvoiceInputs(id, customerName, order, date);
             if(newIv == null)
             {
                 FeedBack = "Kiểu dữ liệu chưa đúng";

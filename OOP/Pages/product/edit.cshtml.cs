@@ -49,7 +49,7 @@ namespace Presentation.Pages.product
             string company = Request.Form["company"].ToString();
             string mfg = Request.Form["mfg"].ToString();
             string exp = Request.Form["exp"].ToString();
-            Product? editP = ProductDataChecker.InputValidate(id, name, price, category, quantity, company, mfg, exp);
+            Product? editP = DataChecker.ProductInputs(id, name, price, category, quantity, company, mfg, exp);
             if (editP == null)
             {
                 Feedback = "Kiểu dữ liệu không đúng";

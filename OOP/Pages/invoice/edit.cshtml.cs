@@ -37,7 +37,7 @@ namespace Presentation.Pages.invoice
             string date = Request.Form["date"].ToString();
             string selectedList = Request.Form["order"].ToString();
             List<Product> order = _ProductController.GenerateOrder(selectedList.Split("+#+"));
-            Invoice? editIv = InvoiceDataChecker.InputValidate(id, customerName, order, date);
+            Invoice? editIv = DataChecker.InvoiceInputs(id, customerName, order, date);
             if (editIv == null)
             {
                 FeedBack = "Kiểu dữ liệu chưa đúng";
