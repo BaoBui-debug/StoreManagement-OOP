@@ -2,7 +2,6 @@
 using Presentation.Controllers;
 using Logic;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics;
 
 namespace Presentation.Pages
 {

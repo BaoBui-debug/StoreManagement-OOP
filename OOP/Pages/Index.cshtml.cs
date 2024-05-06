@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace OOP.Pages
@@ -11,7 +10,6 @@ namespace OOP.Pages
         {
             _logger = logger;
         }
-
         public void OnGet()
         {
 
