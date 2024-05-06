@@ -9,7 +9,7 @@ namespace Presentation.Pages.category
     {
         private static readonly CategoryController _CategoryController = new();
         private readonly ImportController _ImportController = new();
-        private readonly CategoryValidator _Validator = new(_CategoryController.FilePath);
+        private readonly ItemValidator<Category> _Validator = new(_CategoryController.FilePath);
         public List<Import> Imports = [];
         public string? FeedBack;
         public string? Status;

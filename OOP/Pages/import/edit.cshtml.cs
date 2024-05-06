@@ -9,7 +9,7 @@ namespace Presentation.Pages.import
     public class EditModel : PageModel
     {
         private static readonly ImportController _ImportController = new();
-        private static readonly ImportValidator _Validator = new(_ImportController.FilePath);
+        private static readonly ItemValidator<Import> _Validator = new(_ImportController.FilePath);
         public List<Import> Imports = _ImportController.FetchData();
         public string? FeedBack;
         public string? Note;
