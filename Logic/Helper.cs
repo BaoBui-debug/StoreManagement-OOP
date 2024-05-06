@@ -20,6 +20,18 @@ namespace Logic
             }
             return equals == destination;
         }
+        public static List<IEntity> EntityCasting<T>(List<T> list)
+        {
+            List<IEntity> entities = [];
+            foreach(T item in list) 
+            {
+                if (item is IEntity e)
+                {
+                    entities.Add(e);
+                }
+            }
+            return entities;
+        }
         public static IEnumerable<int> GetRangeFromString(string option) 
         {
             int from = int.Parse(option.Split("-")[0]);

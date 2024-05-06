@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using Entity;
+using Entity.Interface;
 
 namespace Logic.Validators
 {
