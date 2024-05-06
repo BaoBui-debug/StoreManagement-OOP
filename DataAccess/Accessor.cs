@@ -17,12 +17,6 @@ namespace DataAccess
             reader.Close();
             return JsonConvert.DeserializeObject<List<T>>(json) ?? throw new Exception("Đã có lỗi xảy ra trong cơ sở dữ liệu");
         }
-        public List<T> Expand(T newItem)
-        {
-            List<T> list = Read();
-            list.Add(newItem);
-            return list;
-        }
         public void Write(List<T> newList)
         {
             StreamWriter writer = new(FilePath);
