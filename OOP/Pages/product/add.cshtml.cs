@@ -15,6 +15,13 @@ namespace Presentation.Pages.product
         public List<Category> Categories = _CategoryController.FetchData();
         public List<Import> Imports = _ImportController.FetchData();
         public string? FeedBack;
+        public void OnGet()
+        {
+            if (HttpContext.Session.GetString("username") != "Admin")
+            {
+                Response.Redirect("/account/login");
+            }
+        }
         public void OnPost()
         {
             string id = Request.Form["id"].ToString();

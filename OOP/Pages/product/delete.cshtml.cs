@@ -10,6 +10,13 @@ namespace Presentation.Pages.product
         private static readonly ImportController _ImportController = new();
         public string Message = "Dữ liệu về sản phẩm này sẽ bị xóa vĩnh viễn";
         public List<Import> Imports = _ImportController.FetchData();
+        public void OnGet()
+        {
+            if (HttpContext.Session.GetString("username") != "Admin")
+            {
+                Response.Redirect("/account/login");
+            }
+        }
         public void OnPost()
         {
             int index = int.Parse(Request.Query["id"].ToString());

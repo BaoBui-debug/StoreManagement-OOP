@@ -20,6 +20,10 @@ namespace Presentation.Pages
         public string? FeedBack;
         public void OnGet()
         {
+            if (HttpContext.Session.GetString("username") != "Admin")
+            {
+                Response.Redirect("/account/login");
+            }
             id = Request.Query["i"].ToString();
             switch (id)
             {

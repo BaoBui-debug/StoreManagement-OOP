@@ -27,6 +27,10 @@ namespace Presentation.Pages.product
         public DateOnly DefExp;
         public void OnGet()
         {
+            if (HttpContext.Session.GetString("username") != "Admin")
+            {
+                Response.Redirect("/account/login");
+            }
             int index = int.Parse(Request.Query["id"].ToString());
             Product result = _ProductController.FetchData()[index];
             DefId = result.Id;
