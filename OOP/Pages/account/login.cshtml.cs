@@ -10,6 +10,7 @@ namespace Presentation.Pages.account
         private static readonly AccountController _Controller = new();
         private static readonly AccountValidator _Validator = new(_Controller.FilePath);
         public string? FeedBack;
+        public string Message = "Bạn phải đăng nhập để sử dụng ứng dụng này";
         public void OnPost() 
         {
             string Name = Request.Form["name"].ToString();

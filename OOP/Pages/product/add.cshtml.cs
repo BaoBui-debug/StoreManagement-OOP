@@ -11,13 +11,14 @@ namespace Presentation.Pages.product
         private static readonly ProductController _ProductController = new();
         private static readonly ImportController _ImportController = new();
         private static readonly CategoryController _CategoryController = new();
+        private static readonly AccountController _AccountController = new();
         private static readonly ItemValidator<Product> _Validator = new(_ProductController.FilePath);
         public List<Category> Categories = _CategoryController.FetchData();
         public List<Import> Imports = _ImportController.FetchData();
         public string? FeedBack;
         public void OnGet()
         {
-            if (HttpContext.Session.GetString("username") != "Admin")
+            if (!_AccountController.ExistsUser(HttpContext.Session.GetString("username")))
             {
                 Response.Redirect("/account/login");
             }

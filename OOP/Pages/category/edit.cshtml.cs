@@ -11,6 +11,7 @@ namespace Presentation.Pages.category
         private readonly ProductController _ProductController = new();
         private readonly ImportController _ImportController = new();
         private readonly ItemValidator<Category> _Validator = new(_CategoryController.FilePath);
+        private readonly AccountController _AccountController = new();
         public List<Import> Imports = [];
         public string CurrentName = string.Empty;
         public string? Note;
@@ -18,7 +19,7 @@ namespace Presentation.Pages.category
         public string? Status;
         public void OnGet()
         {
-            if (HttpContext.Session.GetString("username") != "Admin")
+            if (!_AccountController.ExistsUser(HttpContext.Session.GetString("username")))
             {
                 Response.Redirect("/account/login");
             }

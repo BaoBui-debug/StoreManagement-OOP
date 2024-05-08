@@ -11,6 +11,7 @@ namespace Presentation.Pages.invoice
         private static readonly InvoiceController _InvoiceController = new();
         private static readonly ProductController _ProductController = new();
         private static readonly ImportController _ImportController = new();
+        private static readonly AccountController _AccountController = new();
         private static readonly ItemValidator<Invoice> _Validator = new(_InvoiceController.FilePath);
         public List<Product> Products = _ProductController.FetchData();
         public List<Import> Imports = _ImportController.FetchData();
@@ -22,7 +23,7 @@ namespace Presentation.Pages.invoice
         public DateOnly DefDate;
         public void OnGet()
         {
-            if (HttpContext.Session.GetString("username") != "Admin")
+            if (!_AccountController.ExistsUser(HttpContext.Session.GetString("username")))
             {
                 Response.Redirect("/account/login");
             }

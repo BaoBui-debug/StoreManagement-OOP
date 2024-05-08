@@ -8,11 +8,12 @@ namespace Presentation.Pages.invoice
     {
         private static readonly ImportController _ImportController = new();
         private static readonly InvoiceController _InvoiceController = new();
+        private static readonly AccountController _AccountController = new();
         public List<Import> Imports = _ImportController.FetchData();
         public string? Message;
         public void OnGet()
         {
-            if (HttpContext.Session.GetString("username") != "Admin")
+            if (!_AccountController.ExistsUser(HttpContext.Session.GetString("username")))
             {
                 Response.Redirect("/account/login");
             }

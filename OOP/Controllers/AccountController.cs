@@ -11,9 +11,13 @@ namespace Presentation.Controllers
         {
             this._Operator = new(FilePath);
         }
-        public List<Account> FetchData()
+        public bool ExistsUser(string? name) 
         {
-            return _Operator.GetList();
+            if(name != null) 
+            {
+                return _Operator.GetList().Find(a => a.Name == name) != null;
+            }
+            return false;
         }
     }
 

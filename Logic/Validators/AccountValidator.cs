@@ -13,20 +13,16 @@ namespace Logic.Validators
         }
         public ServiceResult Verify(Account account) 
         {
-            if(!account.IsDataComplete())
+            Account? valid = FindAccountMatches(account);
+            if(valid == null)
             {
-                _Result.AddError("Vui lòng điền đầy đủ tên và mật khẩu");
-            }
-            Account valid = _Accessor.Read()[0];
-            if(account.Name != valid.Name)
-            {
-                _Result.AddError("Tên đăng nhập chưa đúng");
-            }
-            if(account.Password != valid.Password) 
-            {
-                _Result.AddError("Mật khẩu chưa đúng");
+                _Result.AddError("Sai tên đăng nhập hoặc mật khẩu");
             }
             return _Result;
+        }
+        private Account? FindAccountMatches(Account account)
+        {
+            return _Accessor.Read().Find(acc => acc.Name.Equals(account.Name) && acc.Password.Equals(account.Password));
         }
     }
 }

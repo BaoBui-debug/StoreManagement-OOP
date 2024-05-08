@@ -10,6 +10,7 @@ namespace Presentation.Pages.import
     {
         private static readonly ImportController _ImportController = new();
         private static readonly ItemValidator<Import> _Validator = new(_ImportController.FilePath);
+        private static readonly AccountController _AccountController = new();
         public List<Import> Imports = _ImportController.FetchData();
         public string? FeedBack;
         public string? Note;
@@ -22,7 +23,7 @@ namespace Presentation.Pages.import
         public int DefTotal;
         public void OnGet()
         {
-            if (HttpContext.Session.GetString("username") != "Admin")
+            if (!_AccountController.ExistsUser(HttpContext.Session.GetString("username")))
             {
                 Response.Redirect("/account/login");
             }

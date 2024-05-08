@@ -8,11 +8,12 @@ namespace Presentation.Pages.product
     {
         private readonly ProductController _ProductController = new();
         private static readonly ImportController _ImportController = new();
+        private static readonly AccountController _AccountController = new();
         public string Message = "Dữ liệu về sản phẩm này sẽ bị xóa vĩnh viễn";
         public List<Import> Imports = _ImportController.FetchData();
         public void OnGet()
         {
-            if (HttpContext.Session.GetString("username") != "Admin")
+            if (!_AccountController.ExistsUser(HttpContext.Session.GetString("username")))
             {
                 Response.Redirect("/account/login");
             }

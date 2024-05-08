@@ -11,6 +11,7 @@ namespace Presentation.Pages
         private static readonly CategoryController _CategoryController = new();
         private static readonly ImportController _ImportController = new();
         private static readonly InvoiceController _InvoiceController = new();
+        private static readonly AccountController _AccountController = new();
         public List<Product> Products = _ProductController.FetchData();
         public List<Category> Categories = _CategoryController.FetchData();
         public List<Import> Imports = [];
@@ -20,7 +21,7 @@ namespace Presentation.Pages
         public string? FeedBack;
         public void OnGet()
         {
-            if (HttpContext.Session.GetString("username") != "Admin")
+            if (!_AccountController.ExistsUser(HttpContext.Session.GetString("username")))
             {
                 Response.Redirect("/account/login");
             }

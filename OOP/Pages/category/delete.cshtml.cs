@@ -9,11 +9,12 @@ namespace Presentation.Pages.category
         private static readonly CategoryController _CategoryController = new();
         private readonly ImportController _ImportController = new();
         private readonly ProductController _ProductController = new();
+        private static readonly AccountController _AccountController = new();
         public List<Import> Imports = [];
         public string? Message;
         public void OnGet()
         {
-            if (HttpContext.Session.GetString("username") != "Admin")
+            if (!_AccountController.ExistsUser(HttpContext.Session.GetString("username")))
             {
                 Response.Redirect("/account/login");
             }

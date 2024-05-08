@@ -7,6 +7,7 @@ namespace Presentation.Pages.invoice
     public class DetailModel : PageModel
     {
         private static readonly InvoiceController _InvoiceController = new();
+        private static readonly AccountController _AccountController = new();
         public string Id = "";
         public string CustomerName = "";
         public List<Product> Order = [];
@@ -14,7 +15,7 @@ namespace Presentation.Pages.invoice
         public int Total;
         public void OnGet()
         {
-            if (HttpContext.Session.GetString("username") != "Admin")
+            if (!_AccountController.ExistsUser(HttpContext.Session.GetString("username")))
             {
                 Response.Redirect("/account/login");
             }
