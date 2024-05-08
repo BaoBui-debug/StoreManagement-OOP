@@ -1,0 +1,21 @@
+﻿@page
+@model Presentation.Pages.account.LogoutModel
+
+<div class="text-center">
+    <partial name="_Inform" model="@Model.Message"/>
+    @{
+        if(Model.IsNotLoggedin)
+        {
+            <a class="btn btn-outline-primary" href="/account/login">Đến trang đăng nhập</a>
+        }
+        else
+        {
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-primary m-2" onclick="history.back()">Hủy</button>
+                <form method="post">
+                    <button class="btn btn-danger m-2">Đăng xuất</button>
+                </form>
+            </div>
+        }
+    }
+</div>

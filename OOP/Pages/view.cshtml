@@ -2,8 +2,6 @@
 @model Presentation.Pages.ViewModel
 @using Entity;
 
-<input type="hidden" id="IpWarning" value="@Model.Imports.Where(i => !i.Alive).Count()" />
-
 <div class="container">
     <div class="row">
         <section class="col-1">
