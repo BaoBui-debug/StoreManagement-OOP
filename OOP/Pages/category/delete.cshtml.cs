@@ -7,10 +7,8 @@ namespace Presentation.Pages.category
     public class DeleteModel : PageModel
     {
         private static readonly CategoryController _CategoryController = new();
-        private readonly ImportController _ImportController = new();
         private readonly ProductController _ProductController = new();
         private static readonly AccountController _AccountController = new();
-        public List<Import> Imports = [];
         public string? Message;
         public void OnGet()
         {
@@ -21,7 +19,6 @@ namespace Presentation.Pages.category
             int index = int.Parse(Request.Query["id"].ToString());
             Category target = _CategoryController.FetchData()[index];
             Message = $"Phân loại {target.Name} và các sản phẩm thuộc phân loại này sẽ bị xóa vĩnh viễn";
-            Imports = _ImportController.FetchData();
         }
         public void OnPost()
         {

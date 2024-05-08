@@ -1,8 +1,6 @@
 ﻿@page
 @model Presentation.Pages.invoice.AbortModel
 
-<input type="hidden" id="IpWarning" value="@Model.Imports.Where(i => !i.Alive).Count()" />
-
 <div class="text-center">
     <partial name="_Inform" model="@Model.Note" />
     <h5>Bạn có chắc chắn muốn hủy hóa đơn này?</h5>

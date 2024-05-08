@@ -8,10 +8,8 @@ namespace Presentation.Pages.category
     public class AddModel : PageModel
     {
         private static readonly CategoryController _CategoryController = new();
-        private readonly ImportController _ImportController = new();
-        private readonly ItemValidator<Category> _Validator = new(_CategoryController.FilePath);
         private readonly AccountController _AccountController = new();
-        public List<Import> Imports = [];
+        private readonly ItemValidator<Category> _Validator = new(_CategoryController.FilePath);
         public string? FeedBack;
         public string? Status;
         public void OnGet()
@@ -20,7 +18,6 @@ namespace Presentation.Pages.category
             {
                 Response.Redirect("/account/login");
             }
-            Imports = _ImportController.FetchData();
         }
         public void OnPost()
         {

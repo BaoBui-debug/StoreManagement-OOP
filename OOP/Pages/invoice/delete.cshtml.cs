@@ -6,10 +6,8 @@ namespace Presentation.Pages.invoice
 {
     public class DeleteModel : PageModel
     {
-        private static readonly ImportController _ImportController = new();
         private static readonly InvoiceController _InvoiceController = new();
         private static readonly AccountController _AccountController = new();
-        public List<Import> Imports = _ImportController.FetchData();
         public string? Message;
         public void OnGet()
         {

@@ -2,8 +2,6 @@
 @model Presentation.Pages.product.EditModel
 @using Entity
 
-<input type="hidden" id="IpWarning" value="@Model.Imports.Where(i => !i.Alive).Count()" />
-
 <h4 class="text-danger">@Model.Feedback</h4>
 <h4 class="text-center">Cập nhật thông tin sản phẩm</h4>
 <div class="d-flex justify-content-center">

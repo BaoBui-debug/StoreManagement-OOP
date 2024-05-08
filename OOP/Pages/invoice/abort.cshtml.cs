@@ -6,11 +6,9 @@ namespace Presentation.Pages.invoice
 {
     public class AbortModel : PageModel
     {
-        private static readonly ImportController _ImportController = new();
         private static readonly InvoiceController _InvoiceController = new();
         private static readonly ProductController _ProductController = new();
         private static readonly AccountController _AccountController = new();
-        public List<Import> Imports = _ImportController.FetchData();
         public string? Note;
         public void OnGet()
         {

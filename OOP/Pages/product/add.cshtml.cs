@@ -14,7 +14,6 @@ namespace Presentation.Pages.product
         private static readonly AccountController _AccountController = new();
         private static readonly ItemValidator<Product> _Validator = new(_ProductController.FilePath);
         public List<Category> Categories = _CategoryController.FetchData();
-        public List<Import> Imports = _ImportController.FetchData();
         public string? FeedBack;
         public void OnGet()
         {

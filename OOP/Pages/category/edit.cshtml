@@ -1,8 +1,6 @@
 ﻿@page
 @model Presentation.Pages.category.EditModel
 
-<input type="hidden" id="IpWarning" value="@Model.Imports.Where(i => !i.Alive).Count()" />
-
 <partial name="_Warning" model="@Model.Note" />
 <h5 class="text-center">Sửa loại hàng</h5>
 <div class="col text-center">

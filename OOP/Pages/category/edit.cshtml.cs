@@ -9,10 +9,8 @@ namespace Presentation.Pages.category
     {
         private static readonly CategoryController _CategoryController = new();
         private readonly ProductController _ProductController = new();
-        private readonly ImportController _ImportController = new();
         private readonly ItemValidator<Category> _Validator = new(_CategoryController.FilePath);
         private readonly AccountController _AccountController = new();
-        public List<Import> Imports = [];
         public string CurrentName = string.Empty;
         public string? Note;
         public string? FeedBack;
@@ -27,7 +25,6 @@ namespace Presentation.Pages.category
             Category Precursor = _CategoryController.FetchData()[index];
             CurrentName = Precursor.Name;
             Note = $"LƯU Ý: các sản phẩm thuộc phân loại {CurrentName} sẽ bị thay đổi";
-            Imports = _ImportController.FetchData();
         }
         public void OnPost() 
         {

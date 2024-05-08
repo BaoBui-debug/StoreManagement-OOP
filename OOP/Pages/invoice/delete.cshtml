@@ -1,8 +1,6 @@
 ﻿@page
 @model Presentation.Pages.invoice.DeleteModel
 
-<input type="hidden" id="IpWarning" value="@Model.Imports.Where(i => !i.Alive).Count()" />
-
 <div class="text-center">
     <partial name="_Warning" model="@Model.Message" />
     <h5>Bạn có chắc chắn muốn xóa hóa đơn này?</h5>

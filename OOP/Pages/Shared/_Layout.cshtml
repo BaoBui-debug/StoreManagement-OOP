@@ -37,10 +37,7 @@
                 <a class="btn btn-sm btn-outline-secondary" id="ct" href="/view?i=ct">Phân Loại</a>
             </li>
             <li class="nav-item mx-3">
-                <a class="btn btn-sm btn-outline-secondary position-relative" id="ip" href="/view?i=ip">
-                    Hóa Đơn Nhập Hàng
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark" id="ivNotify"></span>
-                </a>
+                <a class="btn btn-sm btn-outline-secondary position-relative" id="ip" href="/view?i=ip">Hóa Đơn Nhập Hàng</a>
             </li>
             <li class="nav-item mx-3">
                 <a class="btn btn-sm btn-outline-secondary" id="iv" href="/view?i=iv">Hóa Đơn Bán Hàng</a>
@@ -63,11 +60,6 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script type="text/javascript">
-        var notifier = document.getElementById("ivNotify");
-        var warnings = document.getElementById("IpWarning");
-        if (warnings.value != 0) {
-            notifier.innerHTML = warnings.value;
-        }
         function ExpToggle() {
             if (checkbox.checked == true) {
                 exp.readOnly = false;

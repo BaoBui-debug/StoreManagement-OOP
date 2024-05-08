@@ -9,12 +9,10 @@ namespace Presentation.Pages.product
     public class EditModel : PageModel
     {
         private static readonly ProductController _ProductController = new();
-        private static readonly ImportController _ImportController = new();
         private static readonly CategoryController _CategoryController = new();
         private static readonly AccountController _AccountController = new();
         private static readonly ItemValidator<Product> _Validator = new(_ProductController.FilePath);
         public List<Category> Categories = _CategoryController.FetchData();
-        public List<Import> Imports = _ImportController.FetchData();
         public string? Feedback;
         public string? Note;
 
