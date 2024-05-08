@@ -18,6 +18,10 @@ namespace Presentation.Pages.category
         public string? Status;
         public void OnGet()
         {
+            if (HttpContext.Session.GetString("username") != "Admin")
+            {
+                Response.Redirect("/account/login");
+            }
             int index = int.Parse(Request.Query["id"].ToString());
             Category Precursor = _CategoryController.FetchData()[index];
             CurrentName = Precursor.Name;

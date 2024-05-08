@@ -15,6 +15,13 @@ namespace Presentation.Pages.invoice
         public List<Product> Products = _ProductController.FetchData();
         public List<Import> Imports = _ImportController.FetchData();
         public string? FeedBack;
+        public void OnGet()
+        {
+            if (HttpContext.Session.GetString("username") != "Admin")
+            {
+                Response.Redirect("/account/login");
+            }
+        }
         public void OnPost() 
         {
             string id = Request.Form["id"].ToString();
@@ -35,10 +42,10 @@ namespace Presentation.Pages.invoice
                 {
                     _InvoiceController.HandleAdd(newIv);
                     
-                    foreach(Product p in order) {
+                    foreach(Product p in order)
+                    {
                         _ProductController.DecreaseQuantity(p);
-                    }
-                     
+                    } 
                     Response.Redirect("/view?i=iv");
                 }
             }

@@ -1,23 +1,28 @@
 ﻿using Entity;
+using Logic.Validators;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Presentation.Controllers;
 
 namespace Presentation.Pages.account
 {
-    public class loginModel : PageModel
+    public class LoginModel : PageModel
     {
+        private static readonly AccountController _Controller = new();
+        private static readonly AccountValidator _Validator = new(_Controller.FilePath);
         public string? FeedBack;
-        public void OnGet()
-        {
-            //lấy ra tài khoản đã đăng ký
-        }
         public void OnPost() 
         {
-            string Name = Request.Query["name"].ToString();
-            string Password = Request.Query["password"].ToString();
-            Account Login = new(Name, Password);
+            string Name = Request.Form["name"].ToString();
+            string Password = Request.Form["password"].ToString();
             try
             {
-
+                Account ac = new(Name, Password);
+                ServiceResult EndResult = _Validator.Verify(ac);
+                if(EndResult.IsSuccess())
+                {
+                    HttpContext.Session.SetString("username", ac.Name);
+                    Response.Redirect("/account/welcome");
+                }
             }
             catch (Exception ex) 
             {

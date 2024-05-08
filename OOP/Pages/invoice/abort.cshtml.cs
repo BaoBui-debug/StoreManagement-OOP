@@ -13,6 +13,10 @@ namespace Presentation.Pages.invoice
         public string? Note;
         public void OnGet()
         {
+            if (HttpContext.Session.GetString("username") != "Admin")
+            {
+                Response.Redirect("/account/login");
+            }
             Note = "LƯU Ý: Hóa đơn này sẽ bị hủy và các sản phẩm đã chọn sẽ được trả về kho";
         }
         public void OnPost()

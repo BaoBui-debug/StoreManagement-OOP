@@ -11,6 +11,10 @@ namespace Presentation.Pages.import
         public string Message = "Hóa đơn này sẽ bị xóa vĩnh viễn";
         public void OnGet()
         {
+            if (HttpContext.Session.GetString("username") != "Admin")
+            {
+                Response.Redirect("/account/login");
+            }
             Imports = _ImportController.FetchData();
         }
         public void OnPost()

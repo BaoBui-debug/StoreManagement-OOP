@@ -15,6 +15,10 @@ namespace Presentation.Pages.category
         public string? Status;
         public void OnGet()
         {
+            if (HttpContext.Session.GetString("username") != "Admin")
+            {
+                Response.Redirect("/account/login");
+            }
             Imports = _ImportController.FetchData();
         }
         public void OnPost()

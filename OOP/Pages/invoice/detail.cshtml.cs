@@ -14,6 +14,10 @@ namespace Presentation.Pages.invoice
         public int Total;
         public void OnGet()
         {
+            if (HttpContext.Session.GetString("username") != "Admin")
+            {
+                Response.Redirect("/account/login");
+            }
             int index = int.Parse(Request.Query["id"].ToString());
             Invoice Iv = _InvoiceController.FetchData()[index];
             Id = Iv.Id;

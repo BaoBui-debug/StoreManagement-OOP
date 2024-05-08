@@ -12,6 +12,10 @@ namespace Presentation.Pages.invoice
         public string? Message;
         public void OnGet()
         {
+            if (HttpContext.Session.GetString("username") != "Admin")
+            {
+                Response.Redirect("/account/login");
+            }
             Message = "LƯU Ý: Hóa đơn này sẽ bị xóa vĩnh viễn cùng các sản phẩm đã chọn, bạn chỉ nên dùng tính năng xóa khi hóa đơn đã được thanh toán để tránh tình trạng mất hàng";
         }
         public void OnPost()

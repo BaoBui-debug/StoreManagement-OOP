@@ -22,6 +22,10 @@ namespace Presentation.Pages.import
         public int DefTotal;
         public void OnGet()
         {
+            if (HttpContext.Session.GetString("username") != "Admin")
+            {
+                Response.Redirect("/account/login");
+            }
             int index = int.Parse(Request.Query["id"].ToString());
             Import I = _ImportController.FetchData()[index];
             DefId = I.Id;

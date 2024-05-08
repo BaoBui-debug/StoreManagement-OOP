@@ -22,6 +22,10 @@ namespace Presentation.Pages.invoice
         public DateOnly DefDate;
         public void OnGet()
         {
+            if (HttpContext.Session.GetString("username") != "Admin")
+            {
+                Response.Redirect("/account/login");
+            }
             int index = int.Parse(Request.Query["id"].ToString());
             Invoice I = _InvoiceController.FetchData()[index];
             Products = _InvoiceController.GetMaxThreshold(Products, I.Order);
