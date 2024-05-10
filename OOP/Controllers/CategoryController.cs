@@ -52,6 +52,7 @@ namespace Presentation.Controllers
                         total += p.Category.Quantity;
                     }
                     c.Quantity = total;
+                    HandleUpdate(c, ctList.IndexOf(c));
                 }
             }
             return ctList;

@@ -30,7 +30,7 @@ namespace Presentation.Pages
             {
                 case "pr":
                     Navigate = "product";
-                    Products = _ProductController.CheckItemLifeSpan();
+                    Products = _ProductController.FetchData();
                     break;
                 case "ct":
                     Navigate = "category";
@@ -53,7 +53,7 @@ namespace Presentation.Pages
             {
                 case "pr":
                     Navigate = "product";
-                    Products = _ProductController.CheckItemLifeSpan();
+                    Products = _ProductController.FetchData();
                     break;
                 case "ct":
                     Navigate = "category";
@@ -106,14 +106,6 @@ namespace Presentation.Pages
                     case "pr":
                         Products = _ProductController.HandleFilter(int.Parse(mfgOption), int.Parse(expOption), priceRange, companyName, categoryName);
                         FeedBack = Products.Count > 0 ? $"Tìm thấy {Products.Count} kết quả" : "Không tìm thấy kết quả nào";
-                        break;
-                    case "ct":
-                  
-                        break;
-                    case "ip":
-
-                        break;
-                    case "iv":
                         break;
                 }
             }

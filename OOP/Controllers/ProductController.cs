@@ -13,6 +13,7 @@ namespace Presentation.Controllers
         {
             this._Operator = new(FilePath);
             this._Filter = new(_Operator);
+            UpdateItemLifeSpan();
         }
         public List<Product> HandleSearch(string request)
         {
@@ -42,7 +43,7 @@ namespace Presentation.Controllers
         {
             _Operator.Update(p, index);
         }
-        public List<Product> CheckItemLifeSpan()
+        public void UpdateItemLifeSpan()
         {
             List<Product> source = FetchData();
             foreach(Product p in source) 
@@ -53,7 +54,10 @@ namespace Presentation.Controllers
                     HandleUpdate(p, source.IndexOf(p));
                 }
             }
-            return source;
+        }
+        public List<Product> GetAvailableProducts()
+        {
+            return FetchData().FindAll(p => !p.Dated);
         }
         public List<Product> GenerateOrder(string[] request)
         {

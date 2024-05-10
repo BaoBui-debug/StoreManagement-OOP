@@ -12,7 +12,7 @@ namespace Presentation.Pages.invoice
         private static readonly ProductController _ProductController = new();
         private static readonly AccountController _AccountController = new();
         private static readonly ItemValidator<Invoice> _Validator = new(_InvoiceController.FilePath);
-        public List<Product> Products = _ProductController.FetchData();
+        public List<Product> Products = _ProductController.GetAvailableProducts();
         public string? FeedBack;
         public void OnGet()
         {
